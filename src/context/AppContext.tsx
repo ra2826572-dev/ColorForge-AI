@@ -45,7 +45,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return null;
   });
 
-  const [activeTab, setActiveTab] = useState<string>('landing');
+  const [activeTab, setActiveTab] = useState<string>(() => {
+    const saved = localStorage.getItem('cf_user');
+    return saved ? 'overview' : 'landing';
+  });
   const [activeSystem, setActiveSystem] = useState<ColorSystem | null>(null);
   const [projects, setProjects] = useState<Project[]>([]);
   const [history, setHistory] = useState<GenerationHistoryItem[]>([]);

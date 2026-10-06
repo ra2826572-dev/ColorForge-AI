@@ -5,11 +5,14 @@ import { Sparkles, Folder, Palette, ArrowRight, Star, Clock, Plus, Zap, Check } 
 export const OverviewView: React.FC = () => {
   const { user, projects, history, setActiveTab, setActiveSystem, toggleFavoriteProject } = useApp();
 
-  const totalProjects = projects.length;
-  const favoriteProjects = projects.filter(p => p.isFavorite).length;
-  const totalColorsGenerated = history.length * 18 + 36; // 18 semantic roles per generation
+  const validProjects = Array.isArray(projects) ? projects : [];
+  const validHistory = Array.isArray(history) ? history : [];
 
-  const recentProjects = projects.slice(0, 4);
+  const totalProjects = validProjects.length;
+  const favoriteProjects = validProjects.filter(p => p && p.isFavorite).length;
+  const totalColorsGenerated = validHistory.length * 18 + 36; // 18 semantic roles per generation
+
+  const recentProjects = validProjects.slice(0, 4);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
@@ -119,7 +122,19 @@ export const OverviewView: React.FC = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {recentProjects.map(proj => {
-              const pal = proj.colorSystem.activeTheme === 'dark' ? proj.colorSystem.darkPalette : proj.colorSystem.lightPalette;
+              if (!proj) return null;
+              const cs = proj.colorSystem;
+              const theme = cs?.activeTheme === 'dark' ? 'dark' : 'light';
+              const pal = theme === 'dark'
+                ? (cs?.darkPalette || cs?.lightPalette)
+                : (cs?.lightPalette || cs?.darkPalette);
+
+              const pPri = pal?.primary?.hex || '#6366F1';
+              const pSec = pal?.secondary?.hex || '#4F46E5';
+              const pAcc = pal?.accent?.hex || '#06B6D4';
+              const pSurf = pal?.surface?.hex || '#111827';
+              const pBg = pal?.background?.hex || '#0B0F19';
+
               return (
                 <div
                   key={proj.id}
@@ -128,17 +143,17 @@ export const OverviewView: React.FC = () => {
                   <div>
                     {/* Color Preview Swatches */}
                     <div className="flex h-12 rounded-lg overflow-hidden border border-slate-800 mb-3">
-                      <div className="flex-1" style={{ backgroundColor: pal.primary.hex }} />
-                      <div className="flex-1" style={{ backgroundColor: pal.secondary.hex }} />
-                      <div className="flex-1" style={{ backgroundColor: pal.accent.hex }} />
-                      <div className="flex-1" style={{ backgroundColor: pal.surface.hex }} />
-                      <div className="flex-1" style={{ backgroundColor: pal.background.hex }} />
+                      <div className="flex-1" style={{ backgroundColor: pPri }} />
+                      <div className="flex-1" style={{ backgroundColor: pSec }} />
+                      <div className="flex-1" style={{ backgroundColor: pAcc }} />
+                      <div className="flex-1" style={{ backgroundColor: pSurf }} />
+                      <div className="flex-1" style={{ backgroundColor: pBg }} />
                     </div>
 
                     <div className="flex items-start justify-between gap-1">
                       <div>
                         <h3 className="text-xs font-bold text-white group-hover:text-indigo-400 transition-colors truncate max-w-[170px]">
-                          {proj.projectName}
+                          {proj.projectName || proj.websiteName || 'Untitled System'}
                         </h3>
                         <p className="text-[11px] text-slate-400 truncate mt-0.5">
                           {proj.websiteName} · {proj.category}
@@ -158,12 +173,14 @@ export const OverviewView: React.FC = () => {
 
                   <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between">
                     <span className="text-[10px] text-slate-500 font-mono">
-                      {new Date(proj.updatedAt).toLocaleDateString()}
+                      {proj.updatedAt ? new Date(proj.updatedAt).toLocaleDateString() : 'Recent'}
                     </span>
                     <button
                       onClick={() => {
-                        setActiveSystem(proj.colorSystem);
-                        setActiveTab('palette');
+                        if (proj.colorSystem) {
+                          setActiveSystem(proj.colorSystem);
+                          setActiveTab('palette');
+                        }
                       }}
                       className="text-xs font-semibold text-indigo-400 hover:text-indigo-300 flex items-center gap-1"
                     >

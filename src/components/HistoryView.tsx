@@ -6,9 +6,12 @@ export const HistoryView: React.FC = () => {
   const { history, deleteHistoryItem, setActiveSystem, setActiveTab } = useApp();
   const [filter, setFilter] = useState<'all' | 'recent' | 'light' | 'dark'>('all');
 
-  const filteredHistory = history.filter(item => {
-    if (filter === 'light') return item.colorSystem.activeTheme === 'light';
-    if (filter === 'dark') return item.colorSystem.activeTheme === 'dark';
+  const validHistory = Array.isArray(history) ? history : [];
+
+  const filteredHistory = validHistory.filter(item => {
+    if (!item) return false;
+    if (filter === 'light') return item.colorSystem?.activeTheme === 'light';
+    if (filter === 'dark') return item.colorSystem?.activeTheme === 'dark';
     return true;
   });
 

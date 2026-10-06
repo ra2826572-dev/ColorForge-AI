@@ -81,8 +81,19 @@ export const ProjectsView: React.FC = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map(proj => {
+            if (!proj) return null;
             const isEditing = editingId === proj.id;
-            const pal = proj.colorSystem.activeTheme === 'dark' ? proj.colorSystem.darkPalette : proj.colorSystem.lightPalette;
+            const cs = proj.colorSystem;
+            const theme = cs?.activeTheme === 'dark' ? 'dark' : 'light';
+            const pal = theme === 'dark'
+              ? (cs?.darkPalette || cs?.lightPalette)
+              : (cs?.lightPalette || cs?.darkPalette);
+
+            const pPri = pal?.primary?.hex || '#6366F1';
+            const pSec = pal?.secondary?.hex || '#4F46E5';
+            const pAcc = pal?.accent?.hex || '#06B6D4';
+            const pSurf = pal?.surface?.hex || '#111827';
+            const pBg = pal?.background?.hex || '#0B0F19';
 
             return (
               <div
@@ -92,11 +103,11 @@ export const ProjectsView: React.FC = () => {
                 <div>
                   {/* Swatches Strip */}
                   <div className="flex h-14 rounded-xl overflow-hidden border border-slate-800 mb-4 shadow-inner">
-                    <div className="flex-1" style={{ backgroundColor: pal.primary.hex }} />
-                    <div className="flex-1" style={{ backgroundColor: pal.secondary.hex }} />
-                    <div className="flex-1" style={{ backgroundColor: pal.accent.hex }} />
-                    <div className="flex-1" style={{ backgroundColor: pal.surface.hex }} />
-                    <div className="flex-1" style={{ backgroundColor: pal.background.hex }} />
+                    <div className="flex-1" style={{ backgroundColor: pPri }} />
+                    <div className="flex-1" style={{ backgroundColor: pSec }} />
+                    <div className="flex-1" style={{ backgroundColor: pAcc }} />
+                    <div className="flex-1" style={{ backgroundColor: pSurf }} />
+                    <div className="flex-1" style={{ backgroundColor: pBg }} />
                   </div>
 
                   {/* Title & Category */}

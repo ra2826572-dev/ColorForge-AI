@@ -84,11 +84,21 @@ export const Navbar: React.FC<NavbarProps> = ({ isLanding = false }) => {
         {/* Zone 3: 1-2 primary actions */}
         <div className="flex items-center gap-3">
           {user ? (
-            <div className="relative">
-              <button
-                onClick={() => setProfileOpen(!profileOpen)}
-                className="flex items-center gap-2.5 rounded-lg border border-slate-800 bg-slate-900/80 px-2.5 py-1.5 text-xs font-medium text-slate-200 hover:border-slate-700 transition-colors focus:outline-none"
-              >
+            <div className="flex items-center gap-2">
+              {isLanding && (
+                <button
+                  onClick={() => setActiveTab('overview')}
+                  className="flex items-center gap-1.5 rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-indigo-500 transition-colors shadow-sm shadow-indigo-600/20"
+                >
+                  <Sparkles className="h-3.5 w-3.5" />
+                  <span>Go to Dashboard</span>
+                </button>
+              )}
+              <div className="relative">
+                <button
+                  onClick={() => setProfileOpen(!profileOpen)}
+                  className="flex items-center gap-2.5 rounded-lg border border-slate-800 bg-slate-900/80 px-2.5 py-1.5 text-xs font-medium text-slate-200 hover:border-slate-700 transition-colors focus:outline-none"
+                >
                 <img
                   src={user.avatar || '/src/assets/images/avatar_designer_user_1791282031801.jpg'}
                   alt={user.username || user.name}
@@ -149,6 +159,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isLanding = false }) => {
                   </div>
                 </div>
               )}
+              </div>
             </div>
           ) : (
             <div className="flex items-center gap-2">

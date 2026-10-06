@@ -423,10 +423,25 @@ app.post('/api/generate-layout', async (req, res) => {
 
 // Projects CRUD
 app.get('/api/projects', (req, res) => {
-  const userId = req.query.userId as string;
+  const userId = (req.query.userId as string) || 'user_demo_1';
   const db = loadDB();
-  const projects = userId ? db.projects.filter(p => p.userId === userId) : db.projects;
-  return res.json({ projects });
+  let userProjects = db.projects.filter(p => p.userId === userId);
+
+  // If new user has no projects, seed default starter systems for them
+  if (userProjects.length === 0 && db.projects.length > 0) {
+    const starterSeed = db.projects.slice(0, 2).map((p, idx) => ({
+      ...p,
+      id: `proj_${userId}_${idx}_${Date.now()}`,
+      userId,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    }));
+    db.projects.push(...starterSeed);
+    saveDB(db);
+    userProjects = starterSeed;
+  }
+
+  return res.json({ projects: userProjects });
 });
 
 app.post('/api/projects', (req, res) => {
@@ -506,10 +521,23 @@ app.post('/api/projects/:id/duplicate', (req, res) => {
 
 // History CRUD
 app.get('/api/history', (req, res) => {
-  const userId = req.query.userId as string;
+  const userId = (req.query.userId as string) || 'user_demo_1';
   const db = loadDB();
-  const history = userId ? db.history.filter(h => h.userId === userId) : db.history;
-  return res.json({ history });
+  let userHistory = db.history.filter(h => h.userId === userId);
+
+  if (userHistory.length === 0 && db.history.length > 0) {
+    const starterHist = db.history.slice(0, 2).map((h, idx) => ({
+      ...h,
+      id: `hist_${userId}_${idx}_${Date.now()}`,
+      userId,
+      createdAt: new Date().toISOString(),
+    }));
+    db.history.push(...starterHist);
+    saveDB(db);
+    userHistory = starterHist;
+  }
+
+  return res.json({ history: userHistory });
 });
 
 app.delete('/api/history/:id', (req, res) => {
