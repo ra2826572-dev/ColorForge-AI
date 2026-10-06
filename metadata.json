@@ -1,0 +1,6 @@
+{
+  "name": "ColorForge AI",
+  "description": "AI-powered Website Color & Brand System Generator creating accessible, production-ready design systems and real-time website previews.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
