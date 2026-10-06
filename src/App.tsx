@@ -12,6 +12,7 @@ import { Dashboard } from './components/Dashboard';
 import { LoginPage, SignUpPage, ForgotPasswordPage } from './components/AuthPages';
 import { ProtectedRoute, PublicOnlyRoute } from './components/ProtectedRoute';
 import { NotFoundPage } from './components/NotFoundPage';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { ExportModal } from './components/ExportModal';
 import { Toast } from './components/Toast';
 
@@ -28,9 +29,10 @@ const LandingRoute: React.FC = () => {
 
 export default function App() {
   return (
-    <AppProvider>
-      <BrowserRouter>
-        <Routes>
+    <ErrorBoundary>
+      <AppProvider>
+        <BrowserRouter>
+          <Routes>
           {/* Public Landing Route */}
           <Route path="/" element={<LandingRoute />} />
 
@@ -159,5 +161,6 @@ export default function App() {
         <Toast />
       </BrowserRouter>
     </AppProvider>
+  </ErrorBoundary>
   );
 }

@@ -7,7 +7,7 @@ import { User } from '../types/colorforge';
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
-  const { setUser, showToast, refreshData } = useApp();
+  const { setUser, showToast } = useApp();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -35,16 +35,15 @@ export const LoginPage: React.FC = () => {
       const result = await loginAccount(cleanEmail, cleanPassword);
       if (!result.success || !result.user) {
         setError(result.error || 'Invalid email or password.');
+        setLoading(false);
         return;
       }
 
       setUser(result.user);
-      await refreshData();
       showToast(`Welcome back, ${result.user.name || 'Designer'}!`);
       navigate('/dashboard', { replace: true });
     } catch (err: any) {
       setError(err.message || 'An unexpected error occurred during login.');
-    } finally {
       setLoading(false);
     }
   };
@@ -70,12 +69,10 @@ export const LoginPage: React.FC = () => {
       };
 
       setUser(demoUser);
-      await refreshData();
       showToast('Signed in as Alex Vance (Demo Account)');
       navigate('/dashboard', { replace: true });
     } catch (err: any) {
       setError('Failed to initiate demo session.');
-    } finally {
       setLoading(false);
     }
   };
@@ -193,7 +190,7 @@ export const LoginPage: React.FC = () => {
 
 export const SignUpPage: React.FC = () => {
   const navigate = useNavigate();
-  const { setUser, showToast, refreshData } = useApp();
+  const { setUser, showToast } = useApp();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -236,16 +233,15 @@ export const SignUpPage: React.FC = () => {
       const result = await registerAccount(cleanName, cleanEmail, password);
       if (!result.success || !result.user) {
         setError(result.error || 'Registration failed. Please try again.');
+        setLoading(false);
         return;
       }
 
       setUser(result.user);
-      await refreshData();
       showToast(`Account created! Welcome, ${result.user.name}!`);
       navigate('/dashboard', { replace: true });
     } catch (err: any) {
       setError(err.message || 'An unexpected error occurred during signup.');
-    } finally {
       setLoading(false);
     }
   };
@@ -449,7 +445,7 @@ export const ForgotPasswordPage: React.FC = () => {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
+              (`<div>
                 <label className="block text-xs font-semibold text-slate-300 mb-1.5">
                   Email Address
                 </label>
