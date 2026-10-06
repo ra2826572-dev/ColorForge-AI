@@ -1,9 +1,12 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { ColorAnalysisResult, ColorSystem, GenerationHistoryItem, Project, User } from '../types/colorforge';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { ColorSystem, GenerationHistoryItem, Project, User } from '../types/colorforge';
 
 interface AppContextType {
   user: User | null;
   setUser: (user: User | null) => void;
+  authLoading: boolean;
+  dataLoading: boolean;
+  dataError: string | null;
   activeTab: string;
   setActiveTab: (tab: string) => void;
   activeSystem: ColorSystem | null;
@@ -19,6 +22,7 @@ interface AppContextType {
   toggleFavoriteProject: (id: string) => Promise<void>;
   deleteHistoryItem: (id: string) => Promise<void>;
   upgradePlan: (plan: 'free' | 'pro') => Promise<void>;
+  logout: () => void;
   toastMessage: string | null;
   showToast: (msg: string) => void;
   authModalOpen: boolean;
@@ -32,23 +36,12 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(() => {
-    const saved = localStorage.getItem('cf_user');
-    if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch (e) {
-        return null;
-      }
-    }
-    // Start unauthenticated so user explicitly logs in
-    return null;
-  });
+  const [authLoading, setAuthLoading] = useState<boolean>(true);
+  const [user, setUserState] = useState<User | null>(null);
+  const [dataLoading, setDataLoading] = useState<boolean>(false);
+  const [dataError, setDataError] = useState<string | null>(null);
 
-  const [activeTab, setActiveTab] = useState<string>(() => {
-    const saved = localStorage.getItem('cf_user');
-    return saved ? 'overview' : 'landing';
-  });
+  const [activeTab, setActiveTab] = useState<string>('overview');
   const [activeSystem, setActiveSystem] = useState<ColorSystem | null>(null);
   const [projects, setProjects] = useState<Project[]>([]);
   const [history, setHistory] = useState<GenerationHistoryItem[]>([]);
@@ -57,13 +50,40 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [authModalMode, setAuthModalMode] = useState<'login' | 'register' | 'forgot' | 'username_setup'>('login');
   const [exportModalOpen, setExportModalOpen] = useState<boolean>(false);
 
+  // Initialize Auth state from localStorage on startup
   useEffect(() => {
-    if (user) {
-      localStorage.setItem('cf_user', JSON.stringify(user));
+    try {
+      const saved = localStorage.getItem('cf_user');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && parsed.id) {
+          setUserState(parsed);
+        }
+      }
+    } catch (e) {
+      console.warn('Failed to parse saved user credentials', e);
+    } finally {
+      setAuthLoading(false);
+    }
+  }, []);
+
+  const setUser = useCallback((newUser: User | null) => {
+    setUserState(newUser);
+    if (newUser) {
+      localStorage.setItem('cf_user', JSON.stringify(newUser));
     } else {
       localStorage.removeItem('cf_user');
     }
-  }, [user]);
+  }, []);
+
+  const logout = useCallback(() => {
+    setUser(null);
+    localStorage.removeItem('cf_user');
+    setProjects([]);
+    setHistory([]);
+    setActiveSystem(null);
+    setToastMessage('Signed out successfully');
+  }, [setUser]);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -72,29 +92,46 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }, 2800);
   };
 
-  const refreshData = async () => {
+  const refreshData = useCallback(async () => {
+    if (!user) {
+      return;
+    }
+
+    setDataLoading(true);
+    setDataError(null);
+
     try {
-      const pRes = await fetch(`/api/projects?userId=${user?.id || 'user_demo_1'}`);
+      const pRes = await fetch(`/api/projects?userId=${encodeURIComponent(user.id)}`);
       if (pRes.ok) {
         const pData = await pRes.json();
-        setProjects(pData.projects || []);
-        if (!activeSystem && pData.projects?.length > 0) {
-          setActiveSystem(pData.projects[0].colorSystem);
+        const loadedProjects: Project[] = Array.isArray(pData.projects) ? pData.projects : [];
+        setProjects(loadedProjects);
+
+        if (!activeSystem && loadedProjects.length > 0 && loadedProjects[0].colorSystem) {
+          setActiveSystem(loadedProjects[0].colorSystem);
         }
+      } else {
+        throw new Error(`Failed to load projects: ${pRes.statusText}`);
       }
-      const hRes = await fetch(`/api/history?userId=${user?.id || 'user_demo_1'}`);
+
+      const hRes = await fetch(`/api/history?userId=${encodeURIComponent(user.id)}`);
       if (hRes.ok) {
         const hData = await hRes.json();
-        setHistory(hData.history || []);
+        setHistory(Array.isArray(hData.history) ? hData.history : []);
       }
-    } catch (err) {
-      console.error('Failed to fetch data', err);
+    } catch (err: any) {
+      console.error('Failed to fetch user workspace data', err);
+      setDataError(err.message || 'Something went wrong while loading your workspace.');
+    } finally {
+      setDataLoading(false);
     }
-  };
+  }, [user, activeSystem]);
 
   useEffect(() => {
-    refreshData();
-  }, [user?.id]);
+    if (user?.id) {
+      refreshData();
+    }
+  }, [user?.id, refreshData]);
 
   const saveCurrentProject = async (projectName?: string): Promise<Project | null> => {
     if (!activeSystem) return null;
@@ -199,7 +236,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       if (res.ok) {
         const data = await res.json();
         setUser(data.user);
-        showToast(`Upgraded to ${plan.toUpperCase()} Plan! Enjoy unlimited generations.`);
+        showToast(`Upgraded to ${plan.toUpperCase()} Plan! Unlimited generations unlocked.`);
       }
     } catch (e) {
       console.error(e);
@@ -211,6 +248,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       value={{
         user,
         setUser,
+        authLoading,
+        dataLoading,
+        dataError,
         activeTab,
         setActiveTab,
         activeSystem,
@@ -226,6 +266,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         toggleFavoriteProject,
         deleteHistoryItem,
         upgradePlan,
+        logout,
         toastMessage,
         showToast,
         authModalOpen,

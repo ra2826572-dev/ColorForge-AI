@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import {
   Sparkles,
@@ -18,7 +19,8 @@ import {
 } from 'lucide-react';
 
 export const LandingPage: React.FC = () => {
-  const { user, setUser, setActiveTab, setActiveSystem, setAuthModalOpen, setAuthModalMode, showToast, refreshData } = useApp();
+  const navigate = useNavigate();
+  const { user, setUser, setActiveTab, setActiveSystem, showToast, refreshData } = useApp();
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [quickName, setQuickName] = useState('');
   const [isQuickGenerating, setIsQuickGenerating] = useState(false);
@@ -92,9 +94,9 @@ export const LandingPage: React.FC = () => {
   const handleStart = () => {
     if (user) {
       setActiveTab('generator');
+      navigate('/generator');
     } else {
-      setAuthModalMode('register');
-      setAuthModalOpen(true);
+      navigate('/signup');
     }
   };
 
@@ -129,9 +131,9 @@ export const LandingPage: React.FC = () => {
               onClick={() => {
                 if (user) {
                   setActiveTab('layout-generator');
+                  navigate('/studio');
                 } else {
-                  setAuthModalMode('login');
-                  setAuthModalOpen(true);
+                  navigate('/login');
                 }
               }}
               className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl border border-indigo-500/40 bg-indigo-950/30 px-6 py-3.5 text-sm font-semibold text-indigo-300 hover:bg-indigo-900/40 hover:text-white transition-all shadow-md cursor-pointer"

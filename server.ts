@@ -52,7 +52,11 @@ function loadDB(): DBData {
     avatar: '/src/assets/images/avatar_designer_user_1791282031801.jpg',
     plan: 'free',
     generationsUsed: 3,
-    maxFreeGenerations: 5,
+    maxFreeGenerations: 10,
+    aiGenerationsUsed: 3,
+    maxAiGenerations: 10,
+    palettesUsed: 5,
+    maxPalettes: 20,
     createdAt: new Date().toISOString(),
   };
 
@@ -210,7 +214,11 @@ app.post('/api/auth/register', (req, res) => {
     avatar: '/src/assets/images/avatar_founder_user_1791282046459.jpg',
     plan: 'free',
     generationsUsed: 0,
-    maxFreeGenerations: 5,
+    maxFreeGenerations: 10,
+    aiGenerationsUsed: 0,
+    maxAiGenerations: 10,
+    palettesUsed: 0,
+    maxPalettes: 20,
     createdAt: new Date().toISOString(),
   };
 

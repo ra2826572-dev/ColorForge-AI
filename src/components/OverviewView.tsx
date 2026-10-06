@@ -1,133 +1,307 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
-import { Sparkles, Folder, Palette, ArrowRight, Star, Clock, Plus, Zap, Check } from 'lucide-react';
+import {
+  Sparkles,
+  Palette,
+  FolderKanban,
+  LayoutTemplate,
+  ArrowRight,
+  Star,
+  Clock,
+  Plus,
+  Zap,
+  Crown,
+  AlertTriangle,
+  RefreshCw,
+  ExternalLink,
+} from 'lucide-react';
 
 export const OverviewView: React.FC = () => {
-  const { user, projects, history, setActiveTab, setActiveSystem, toggleFavoriteProject } = useApp();
+  const navigate = useNavigate();
+  const {
+    user,
+    projects,
+    history,
+    setActiveTab,
+    setActiveSystem,
+    toggleFavoriteProject,
+    dataLoading,
+    dataError,
+    refreshData,
+    upgradePlan,
+  } = useApp();
 
   const validProjects = Array.isArray(projects) ? projects : [];
   const validHistory = Array.isArray(history) ? history : [];
 
   const totalProjects = validProjects.length;
   const favoriteProjects = validProjects.filter(p => p && p.isFavorite).length;
-  const totalColorsGenerated = validHistory.length * 18 + 36; // 18 semantic roles per generation
+
+  const aiGenerationsUsed = user?.aiGenerationsUsed ?? user?.generationsUsed ?? 0;
+  const maxAiGenerations = user?.maxAiGenerations ?? 10;
+  const palettesUsed = user?.palettesUsed ?? totalProjects;
+  const maxPalettes = user?.maxPalettes ?? 20;
 
   const recentProjects = validProjects.slice(0, 4);
 
+  // Error State
+  if (dataError && !dataLoading && validProjects.length === 0) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="rounded-2xl border border-rose-500/30 bg-rose-950/20 p-8 text-center space-y-4 max-w-lg mx-auto">
+          <AlertTriangle className="h-10 w-10 text-rose-400 mx-auto" />
+          <h2 className="text-lg font-bold text-white">Something went wrong while loading your workspace.</h2>
+          <p className="text-xs text-rose-300/80">{dataError}</p>
+          <button
+            onClick={() => refreshData()}
+            className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-xs font-bold text-white hover:bg-indigo-500 transition-colors shadow-md"
+          >
+            <RefreshCw className="h-3.5 w-3.5" />
+            <span>Try Again</span>
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Skeleton Loader State
+  if (dataLoading && validProjects.length === 0) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-pulse">
+        <div className="h-32 rounded-2xl bg-slate-900 border border-slate-800" />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="h-44 rounded-2xl bg-slate-900 border border-slate-800" />
+          <div className="h-44 rounded-2xl bg-slate-900 border border-slate-800" />
+          <div className="h-44 rounded-2xl bg-slate-900 border border-slate-800" />
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="h-28 rounded-xl bg-slate-900 border border-slate-800" />
+          <div className="h-28 rounded-xl bg-slate-900 border border-slate-800" />
+          <div className="h-28 rounded-xl bg-slate-900 border border-slate-800" />
+          <div className="h-28 rounded-xl bg-slate-900 border border-slate-800" />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-      {/* Welcome Banner with Quick Action */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border border-slate-800 bg-gradient-to-r from-slate-900 via-slate-900 to-indigo-950/40 p-6 shadow-xl">
-        <div>
-          <span className="text-xs font-mono uppercase tracking-wider text-indigo-400">Workspace Dashboard</span>
-          <h1 className="text-2xl font-bold text-white mt-1">
+      {/* 1. Welcome Banner */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 rounded-2xl border border-slate-800 bg-gradient-to-r from-slate-900 via-slate-900 to-indigo-950/40 p-6 sm:p-8 shadow-xl">
+        <div className="space-y-1.5">
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-indigo-500/30 bg-indigo-950/40 px-3 py-0.5 text-[11px] font-mono font-medium text-indigo-300">
+            <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
+            <span>Workspace Studio</span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
             Welcome back, {user?.username || user?.name || 'Designer'}
           </h1>
-          <p className="text-xs text-slate-400 mt-1 max-w-lg">
-            Manage your brand systems, generate accessible website palettes, and export design tokens in one unified hub.
+          <p className="text-xs sm:text-sm text-slate-400 max-w-xl leading-relaxed">
+            Create professional website designs from your colors with AI.
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2.5">
-          <button
-            onClick={() => setActiveTab('layout-generator')}
-            className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 px-5 py-3 text-xs font-bold text-white hover:opacity-95 transition-all shadow-lg shadow-indigo-600/30"
-          >
-            <Sparkles className="h-4 w-4" />
-            AI Layout Generator
-          </button>
-          <button
-            onClick={() => setActiveTab('generator')}
-            className="flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-800 px-5 py-3 text-xs font-bold text-slate-200 hover:bg-slate-700 hover:text-white transition-all shadow-md"
-          >
-            <Plus className="h-4 w-4" />
-            New Color System
-          </button>
+        {/* Free Plan Usage Metrics Card */}
+        <div className="shrink-0 rounded-xl border border-slate-800 bg-slate-950/80 p-4 min-w-[260px] space-y-3 shadow-md">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-semibold text-white uppercase tracking-wider font-mono">
+              Plan: {user?.plan?.toUpperCase() || 'FREE'}
+            </span>
+            {user?.plan === 'free' && (
+              <button
+                onClick={() => upgradePlan('pro')}
+                className="text-[10px] font-bold text-amber-400 hover:text-amber-300 flex items-center gap-1"
+              >
+                <Crown className="h-3 w-3" />
+                Upgrade
+              </button>
+            )}
+          </div>
+
+          <div className="space-y-2 text-xs">
+            {/* AI Generations Meter */}
+            <div className="space-y-1">
+              <div className="flex justify-between text-[11px] text-slate-400">
+                <span>AI Generations</span>
+                <span className="font-mono text-white font-medium">
+                  {aiGenerationsUsed} / {user?.plan === 'pro' ? '∞' : maxAiGenerations}
+                </span>
+              </div>
+              <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-indigo-500 rounded-full transition-all"
+                  style={{
+                    width: user?.plan === 'pro' ? '100%' : `${Math.min(100, (aiGenerationsUsed / maxAiGenerations) * 100)}%`,
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Color Palettes Meter */}
+            <div className="space-y-1">
+              <div className="flex justify-between text-[11px] text-slate-400">
+                <span>Color Palettes</span>
+                <span className="font-mono text-white font-medium">
+                  {palettesUsed} / {user?.plan === 'pro' ? '∞' : maxPalettes}
+                </span>
+              </div>
+              <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-emerald-500 rounded-full transition-all"
+                  style={{
+                    width: user?.plan === 'pro' ? '100%' : `${Math.min(100, (palettesUsed / maxPalettes) * 100)}%`,
+                  }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Metrics Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="rounded-xl border border-slate-800 bg-slate-900/80 p-5 shadow-sm">
-          <div className="flex items-center justify-between text-slate-400 mb-2">
-            <span className="text-xs font-medium">Total Projects</span>
-            <Folder className="h-4 w-4 text-indigo-400" />
+      {/* 2. Main Feature Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {/* Feature Card 1: AI Website Layout */}
+        <div className="group rounded-2xl border border-indigo-500/30 bg-gradient-to-b from-indigo-950/30 via-slate-900 to-slate-900 p-6 flex flex-col justify-between hover:border-indigo-500/60 transition-all shadow-lg hover:shadow-indigo-950/40">
+          <div className="space-y-3">
+            <div className="w-12 h-12 rounded-xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 group-hover:scale-105 transition-transform">
+              <LayoutTemplate className="h-6 w-6" />
+            </div>
+            <h2 className="text-lg font-bold text-white tracking-tight">
+              AI Website Layout
+            </h2>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Turn your selected colors into a complete website design.
+            </p>
           </div>
-          <p className="text-2xl font-bold font-mono text-white tabular-nums">{totalProjects}</p>
-          <span className="text-[11px] text-slate-500 mt-1 block">Active brand systems</span>
+
+          <div className="pt-6">
+            <button
+              onClick={() => {
+                setActiveTab('layout-generator');
+                navigate('/studio');
+              }}
+              className="w-full flex items-center justify-center gap-2 rounded-xl bg-indigo-600 py-3 text-xs font-bold text-white hover:bg-indigo-500 transition-colors shadow-lg shadow-indigo-600/20 active:scale-95"
+            >
+              <Sparkles className="h-4 w-4" />
+              <span>Generate Layout</span>
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
         </div>
 
-        <div className="rounded-xl border border-slate-800 bg-slate-900/80 p-5 shadow-sm">
-          <div className="flex items-center justify-between text-slate-400 mb-2">
-            <span className="text-xs font-medium">Saved Palettes</span>
-            <Palette className="h-4 w-4 text-emerald-400" />
+        {/* Feature Card 2: Color Generator */}
+        <div className="group rounded-2xl border border-slate-800 bg-slate-900 p-6 flex flex-col justify-between hover:border-slate-700 transition-all shadow-md">
+          <div className="space-y-3">
+            <div className="w-12 h-12 rounded-xl bg-purple-600/20 border border-purple-500/30 flex items-center justify-center text-purple-400 group-hover:scale-105 transition-transform">
+              <Palette className="h-6 w-6" />
+            </div>
+            <h2 className="text-lg font-bold text-white tracking-tight">
+              Color Generator
+            </h2>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Create and refine professional color palettes.
+            </p>
           </div>
-          <p className="text-2xl font-bold font-mono text-white tabular-nums">{totalProjects}</p>
-          <span className="text-[11px] text-slate-500 mt-1 block">{favoriteProjects} marked favorite</span>
+
+          <div className="pt-6">
+            <button
+              onClick={() => {
+                setActiveTab('generator');
+                navigate('/generator');
+              }}
+              className="w-full flex items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-800 py-3 text-xs font-bold text-slate-100 hover:bg-slate-700 hover:text-white transition-colors active:scale-95"
+            >
+              <Plus className="h-4 w-4" />
+              <span>Create Palette</span>
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
         </div>
 
-        <div className="rounded-xl border border-slate-800 bg-slate-900/80 p-5 shadow-sm">
-          <div className="flex items-center justify-between text-slate-400 mb-2">
-            <span className="text-xs font-medium">Generated Colors</span>
-            <Zap className="h-4 w-4 text-amber-400" />
+        {/* Feature Card 3: My Projects */}
+        <div className="group rounded-2xl border border-slate-800 bg-slate-900 p-6 flex flex-col justify-between hover:border-slate-700 transition-all shadow-md">
+          <div className="space-y-3">
+            <div className="w-12 h-12 rounded-xl bg-emerald-600/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform">
+              <FolderKanban className="h-6 w-6" />
+            </div>
+            <h2 className="text-lg font-bold text-white tracking-tight">
+              My Projects
+            </h2>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              View your saved designs and palettes.
+            </p>
           </div>
-          <p className="text-2xl font-bold font-mono text-white tabular-nums">{totalColorsGenerated}</p>
-          <span className="text-[11px] text-slate-500 mt-1 block">Across light & dark themes</span>
-        </div>
 
-        <div className="rounded-xl border border-slate-800 bg-slate-900/80 p-5 shadow-sm">
-          <div className="flex items-center justify-between text-slate-400 mb-2">
-            <span className="text-xs font-medium">Plan Quota</span>
-            <Sparkles className="h-4 w-4 text-purple-400" />
+          <div className="pt-6">
+            <button
+              onClick={() => {
+                setActiveTab('projects');
+                navigate('/projects');
+              }}
+              className="w-full flex items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-800 py-3 text-xs font-bold text-slate-100 hover:bg-slate-700 hover:text-white transition-colors active:scale-95"
+            >
+              <FolderKanban className="h-4 w-4" />
+              <span>View Projects</span>
+              <ArrowRight className="h-4 w-4" />
+            </button>
           </div>
-          <p className="text-2xl font-bold font-mono text-white tabular-nums">
-            {user?.generationsUsed || 0} / {user?.plan === 'pro' ? '∞' : user?.maxFreeGenerations || 5}
-          </p>
-          <span className="text-[11px] text-slate-500 mt-1 block">
-            {user?.plan === 'pro' ? 'Pro plan unlimited' : 'Free monthly allowance'}
-          </span>
         </div>
       </div>
 
-      {/* Recent Projects Grid */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
+      {/* 3. Recent Activity Section */}
+      <div className="space-y-4 pt-2">
+        <div className="flex items-center justify-between border-b border-slate-800 pb-3">
           <h2 className="text-base font-bold text-white flex items-center gap-2">
             <Clock className="h-4 w-4 text-indigo-400" />
-            Recent Projects
+            Recent Activity
           </h2>
-          <button
-            onClick={() => setActiveTab('projects')}
-            className="text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1"
-          >
-            View all projects &rarr;
-          </button>
+          {validProjects.length > 0 && (
+            <button
+              onClick={() => {
+                setActiveTab('projects');
+                navigate('/projects');
+              }}
+              className="text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1"
+            >
+              <span>View all ({totalProjects})</span>
+              <ArrowRight className="h-3 w-3" />
+            </button>
+          )}
         </div>
 
         {recentProjects.length === 0 ? (
-          <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-12 text-center space-y-3">
-            <Palette className="mx-auto h-8 w-8 text-slate-600" />
-            <h3 className="text-sm font-semibold text-slate-300">No color systems created yet</h3>
-            <p className="text-xs text-slate-500 max-w-sm mx-auto">
-              Start by creating your first AI-engineered website color system.
-            </p>
-            <button
-              onClick={() => setActiveTab('generator')}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-600 px-4 py-2 text-xs font-semibold text-white hover:bg-indigo-500 transition-colors"
-            >
-              <Plus className="h-3.5 w-3.5" />
-              New System
-            </button>
+          /* Empty State */
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-12 text-center space-y-4">
+            <div className="w-14 h-14 rounded-2xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-center mx-auto text-slate-500">
+              <FolderKanban className="h-7 w-7" />
+            </div>
+            <div className="space-y-1 max-w-sm mx-auto">
+              <h3 className="text-sm font-bold text-slate-200">No projects yet</h3>
+              <p className="text-xs text-slate-400">
+                Create your first AI website layout or color system to see it here.
+              </p>
+            </div>
+            <div className="pt-2">
+              <button
+                onClick={() => {
+                  setActiveTab('layout-generator');
+                  navigate('/studio');
+                }}
+                className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 text-xs font-bold text-white hover:bg-indigo-500 transition-colors shadow-lg shadow-indigo-600/20"
+              >
+                <Sparkles className="h-4 w-4" />
+                <span>Create Your First Design</span>
+              </button>
+            </div>
           </div>
         ) : (
+          /* Recent Cards Grid */
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {recentProjects.map(proj => {
               if (!proj) return null;
               const cs = proj.colorSystem;
-              const theme = cs?.activeTheme === 'dark' ? 'dark' : 'light';
-              const pal = theme === 'dark'
-                ? (cs?.darkPalette || cs?.lightPalette)
-                : (cs?.lightPalette || cs?.darkPalette);
+              const pal = cs?.lightPalette || cs?.darkPalette;
 
               const pPri = pal?.primary?.hex || '#6366F1';
               const pSec = pal?.secondary?.hex || '#4F46E5';
@@ -141,8 +315,8 @@ export const OverviewView: React.FC = () => {
                   className="group rounded-xl border border-slate-800 bg-slate-900 p-4 space-y-3 hover:border-slate-700 transition-all shadow-sm flex flex-col justify-between"
                 >
                   <div>
-                    {/* Color Preview Swatches */}
-                    <div className="flex h-12 rounded-lg overflow-hidden border border-slate-800 mb-3">
+                    {/* Visual Color Swatches Bar */}
+                    <div className="flex h-10 rounded-lg overflow-hidden border border-slate-800 mb-3 shadow-inner">
                       <div className="flex-1" style={{ backgroundColor: pPri }} />
                       <div className="flex-1" style={{ backgroundColor: pSec }} />
                       <div className="flex-1" style={{ backgroundColor: pAcc }} />
@@ -151,8 +325,8 @@ export const OverviewView: React.FC = () => {
                     </div>
 
                     <div className="flex items-start justify-between gap-1">
-                      <div>
-                        <h3 className="text-xs font-bold text-white group-hover:text-indigo-400 transition-colors truncate max-w-[170px]">
+                      <div className="overflow-hidden">
+                        <h3 className="text-xs font-bold text-white group-hover:text-indigo-400 transition-colors truncate">
                           {proj.projectName || proj.websiteName || 'Untitled System'}
                         </h3>
                         <p className="text-[11px] text-slate-400 truncate mt-0.5">
@@ -171,7 +345,7 @@ export const OverviewView: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between">
+                  <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between">
                     <span className="text-[10px] text-slate-500 font-mono">
                       {proj.updatedAt ? new Date(proj.updatedAt).toLocaleDateString() : 'Recent'}
                     </span>
@@ -179,12 +353,14 @@ export const OverviewView: React.FC = () => {
                       onClick={() => {
                         if (proj.colorSystem) {
                           setActiveSystem(proj.colorSystem);
-                          setActiveTab('palette');
+                          setActiveTab('layout-generator');
+                          navigate('/studio');
                         }
                       }}
                       className="text-xs font-semibold text-indigo-400 hover:text-indigo-300 flex items-center gap-1"
                     >
-                      Open &rarr;
+                      <span>Preview Layout</span>
+                      <ArrowRight className="h-3 w-3" />
                     </button>
                   </div>
                 </div>
@@ -192,25 +368,6 @@ export const OverviewView: React.FC = () => {
             })}
           </div>
         )}
-      </div>
-
-      {/* AI Recommendations Banner */}
-      <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div>
-          <span className="text-xs font-mono uppercase tracking-wider text-indigo-400">Pro Feature Spot</span>
-          <h3 className="text-sm font-bold text-white mt-0.5">
-            Looking to verify an existing brand hex code?
-          </h3>
-          <p className="text-xs text-slate-400 mt-1">
-            Use the Color Analyzer to dissect psychological impact, WCAG contrast thresholds, and derived harmonic palettes.
-          </p>
-        </div>
-        <button
-          onClick={() => setActiveTab('analyzer')}
-          className="whitespace-nowrap rounded-lg border border-slate-700 bg-slate-800 px-4 py-2 text-xs font-semibold text-slate-200 hover:bg-slate-700 hover:text-white transition-colors"
-        >
-          Open Color Analyzer
-        </button>
       </div>
     </div>
   );

@@ -89,6 +89,10 @@ export interface User {
   plan: 'free' | 'pro';
   generationsUsed: number;
   maxFreeGenerations: number;
+  aiGenerationsUsed?: number;
+  maxAiGenerations?: number;
+  palettesUsed?: number;
+  maxPalettes?: number;
   createdAt: string;
 }
 
