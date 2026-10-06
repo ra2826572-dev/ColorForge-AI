@@ -28,8 +28,11 @@ export const SettingsView: React.FC = () => {
       });
       if (res.ok) {
         const data = await res.json();
-        setUser(data.user);
-        showToast('Profile updated successfully');
+        setUser({
+          ...data.user,
+          username: name,
+        });
+        showToast('Username & Profile updated successfully');
       }
     } catch (e) {
       console.error(e);

@@ -23,8 +23,8 @@ interface AppContextType {
   showToast: (msg: string) => void;
   authModalOpen: boolean;
   setAuthModalOpen: (open: boolean) => void;
-  authModalMode: 'login' | 'register' | 'forgot';
-  setAuthModalMode: (mode: 'login' | 'register' | 'forgot') => void;
+  authModalMode: 'login' | 'register' | 'forgot' | 'username_setup';
+  setAuthModalMode: (mode: 'login' | 'register' | 'forgot' | 'username_setup') => void;
   exportModalOpen: boolean;
   setExportModalOpen: (open: boolean) => void;
 }
@@ -41,17 +41,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         return null;
       }
     }
-    // Default demo user for instant interactive exploration
-    return {
-      id: 'user_demo_1',
-      name: 'Alex Vance',
-      email: 'alex.vance@studio.design',
-      avatar: '/src/assets/images/avatar_designer_user_1791282031801.jpg',
-      plan: 'free',
-      generationsUsed: 3,
-      maxFreeGenerations: 5,
-      createdAt: new Date().toISOString(),
-    };
+    // Start unauthenticated so user explicitly logs in
+    return null;
   });
 
   const [activeTab, setActiveTab] = useState<string>('landing');
@@ -60,7 +51,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [history, setHistory] = useState<GenerationHistoryItem[]>([]);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [authModalOpen, setAuthModalOpen] = useState<boolean>(false);
-  const [authModalMode, setAuthModalMode] = useState<'login' | 'register' | 'forgot'>('login');
+  const [authModalMode, setAuthModalMode] = useState<'login' | 'register' | 'forgot' | 'username_setup'>('login');
   const [exportModalOpen, setExportModalOpen] = useState<boolean>(false);
 
   useEffect(() => {

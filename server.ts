@@ -13,6 +13,12 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 app.use(express.json({ limit: '10mb' }));
 
+// Force application/json for all /api routes
+app.use('/api', (req, res, next) => {
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
+  next();
+});
+
 // Local JSON store persistence
 const DATA_DIR = path.resolve(process.cwd(), 'data');
 const DB_FILE = path.join(DATA_DIR, 'store.json');
@@ -160,21 +166,47 @@ const aiProvider = new GeminiProvider(process.env.GEMINI_API_KEY);
 
 // Auth: Register
 app.post('/api/auth/register', (req, res) => {
-  const { name, email, password } = req.body;
-  if (!name || !email || !password) {
-    return res.status(400).json({ error: 'Name, email, and password are required.' });
+  const { name, email, password } = req.body || {};
+
+  const cleanName = (typeof name === 'string' ? name : '').trim();
+  const cleanEmail = (typeof email === 'string' ? email : '').trim().toLowerCase();
+  const cleanPassword = typeof password === 'string' ? password : '';
+
+  if (!cleanName || !cleanEmail || !cleanPassword) {
+    return res.status(400).json({
+      success: false,
+      error: 'Full name, email, and password are required.',
+    });
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(cleanEmail)) {
+    return res.status(400).json({
+      success: false,
+      error: 'Please enter a valid email address.',
+    });
+  }
+
+  if (cleanPassword.length < 6) {
+    return res.status(400).json({
+      success: false,
+      error: 'Password must be at least 6 characters long.',
+    });
   }
 
   const db = loadDB();
-  const existing = db.users.find(u => u.email.toLowerCase() === email.toLowerCase());
+  const existing = db.users.find(u => u.email.toLowerCase() === cleanEmail);
   if (existing) {
-    return res.status(400).json({ error: 'An account with this email already exists.' });
+    return res.status(400).json({
+      success: false,
+      error: 'An account with this email already exists.',
+    });
   }
 
   const newUser: User = {
     id: `user_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
-    name,
-    email,
+    name: cleanName,
+    email: cleanEmail,
     avatar: '/src/assets/images/avatar_founder_user_1791282046459.jpg',
     plan: 'free',
     generationsUsed: 0,
@@ -183,26 +215,42 @@ app.post('/api/auth/register', (req, res) => {
   };
 
   db.users.push(newUser);
-  db.passwords[newUser.id] = password;
+  db.passwords[newUser.id] = cleanPassword;
   saveDB(db);
 
-  return res.json({ user: newUser });
+  return res.status(201).json({
+    success: true,
+    user: newUser,
+  });
 });
 
 // Auth: Login
 app.post('/api/auth/login', (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
-    return res.status(400).json({ error: 'Email and password are required.' });
+  const { email, password } = req.body || {};
+
+  const cleanEmail = (typeof email === 'string' ? email : '').trim().toLowerCase();
+  const cleanPassword = typeof password === 'string' ? password : '';
+
+  if (!cleanEmail || !cleanPassword) {
+    return res.status(400).json({
+      success: false,
+      error: 'Email and password are required.',
+    });
   }
 
   const db = loadDB();
-  const user = db.users.find(u => u.email.toLowerCase() === email.toLowerCase());
-  if (!user || db.passwords[user.id] !== password) {
-    return res.status(401).json({ error: 'Invalid email or password credentials.' });
+  const user = db.users.find(u => u.email.toLowerCase() === cleanEmail);
+  if (!user || db.passwords[user.id] !== cleanPassword) {
+    return res.status(401).json({
+      success: false,
+      error: 'Invalid email or password credentials.',
+    });
   }
 
-  return res.json({ user });
+  return res.json({
+    success: true,
+    user,
+  });
 });
 
 // Auth: Forgot Password simulation
@@ -233,13 +281,15 @@ app.post('/api/auth/reset-password', (req, res) => {
 
 // Auth: Update Profile
 app.patch('/api/auth/profile', (req, res) => {
-  const { userId, name, email, avatar } = req.body;
+  const { userId, name, username, email, avatar } = req.body;
   const db = loadDB();
   const user = db.users.find(u => u.id === userId);
   if (!user) {
     return res.status(404).json({ error: 'User not found.' });
   }
   if (name) user.name = name;
+  if (username) user.username = username;
+  if (name && !user.username) user.username = name;
   if (email) user.email = email;
   if (avatar) user.avatar = avatar;
   saveDB(db);
@@ -355,6 +405,22 @@ app.post('/api/analyze-color', async (req, res) => {
   }
 });
 
+// AI Website Layout Generation Endpoint
+app.post('/api/generate-layout', async (req, res) => {
+  const { colors, websiteType, websiteName } = req.body;
+  if (!colors || !websiteType) {
+    return res.status(400).json({ error: 'Colors and website type are required.' });
+  }
+
+  return res.json({
+    success: true,
+    websiteType,
+    websiteName: websiteName || 'ColorForge AI',
+    colors,
+    timestamp: new Date().toISOString(),
+  });
+});
+
 // Projects CRUD
 app.get('/api/projects', (req, res) => {
   const userId = req.query.userId as string;
@@ -452,6 +518,26 @@ app.delete('/api/history/:id', (req, res) => {
   db.history = db.history.filter(h => h.id !== id);
   saveDB(db);
   return res.json({ success: true, id });
+});
+
+// 404 catch-all for /api/* to guarantee JSON response and prevent HTML fallthrough
+app.all('/api/*', (req, res) => {
+  res.status(404).json({
+    success: false,
+    error: `API route ${req.method} ${req.path} not found.`,
+  });
+});
+
+// Global API error handler ensuring no HTML error page is returned
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  if (req.path.startsWith('/api/')) {
+    console.error('API Error Exception:', err);
+    return res.status(500).json({
+      success: false,
+      error: err.message || 'An internal server error occurred.',
+    });
+  }
+  next(err);
 });
 
 // ----------------- VITE / STATIC SERVING -----------------

@@ -49,6 +49,12 @@ export const Navbar: React.FC<NavbarProps> = ({ isLanding = false }) => {
               Dashboard
             </button>
             <button
+              onClick={() => setActiveTab('layout-generator')}
+              className={`hover:text-white transition-colors ${activeTab === 'layout-generator' ? 'text-indigo-400 font-semibold' : ''}`}
+            >
+              Layout Generator
+            </button>
+            <button
               onClick={() => setActiveTab('generator')}
               className={`hover:text-white transition-colors ${activeTab === 'generator' ? 'text-white font-semibold' : ''}`}
             >
@@ -85,10 +91,10 @@ export const Navbar: React.FC<NavbarProps> = ({ isLanding = false }) => {
               >
                 <img
                   src={user.avatar || '/src/assets/images/avatar_designer_user_1791282031801.jpg'}
-                  alt={user.name}
+                  alt={user.username || user.name}
                   className="h-6 w-6 rounded-md object-cover"
                 />
-                <span className="hidden sm:inline-block max-w-[120px] truncate">{user.name}</span>
+                <span className="hidden sm:inline-block max-w-[120px] truncate">{user.username || user.name}</span>
                 {user.plan === 'pro' ? (
                   <span className="text-[10px] text-amber-400 uppercase tracking-wider font-semibold font-mono">PRO</span>
                 ) : (
@@ -102,7 +108,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isLanding = false }) => {
                   className="absolute right-0 mt-2 w-56 rounded-xl border border-slate-800 bg-slate-900 p-2 shadow-2xl z-50 animate-in fade-in zoom-in-95 duration-150"
                 >
                   <div className="px-3 py-2 border-b border-slate-800">
-                    <p className="text-xs font-semibold text-white truncate">{user.name}</p>
+                    <p className="text-xs font-semibold text-white truncate">{user.username || user.name}</p>
                     <p className="text-[11px] text-slate-400 truncate font-mono">{user.email}</p>
                     <div className="mt-2 flex items-center justify-between text-[11px] text-slate-400">
                       <span>Generations</span>

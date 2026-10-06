@@ -125,6 +125,20 @@ export const LandingPage: React.FC = () => {
               <span>Generate My Colors</span>
               <ArrowRight className="h-4 w-4" />
             </button>
+            <button
+              onClick={() => {
+                if (user) {
+                  setActiveTab('layout-generator');
+                } else {
+                  setAuthModalMode('login');
+                  setAuthModalOpen(true);
+                }
+              }}
+              className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl border border-indigo-500/40 bg-indigo-950/30 px-6 py-3.5 text-sm font-semibold text-indigo-300 hover:bg-indigo-900/40 hover:text-white transition-all shadow-md cursor-pointer"
+            >
+              <Sparkles className="h-4 w-4 text-indigo-400" />
+              <span>AI Layout Generator</span>
+            </button>
             <a
               href="#how-it-works"
               className="w-full sm:w-auto flex items-center justify-center rounded-xl border border-slate-800 bg-slate-900/80 px-6 py-3.5 text-sm font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-colors"

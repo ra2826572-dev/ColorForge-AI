@@ -2,13 +2,14 @@
   "users": [
     {
       "id": "user_demo_1",
-      "name": "Alex Vance",
+      "name": "Rizwan",
       "email": "alex.vance@studio.design",
       "avatar": "/src/assets/images/avatar_designer_user_1791282031801.jpg",
       "plan": "free",
       "generationsUsed": 4,
       "maxFreeGenerations": 5,
-      "createdAt": "2026-10-06T10:32:58.103Z"
+      "createdAt": "2026-10-06T10:32:58.103Z",
+      "username": "Rizwan"
     },
     {
       "id": "user_1791283061696_w8tl",
@@ -16,14 +17,36 @@
       "email": "ra2826572@gmail.com",
       "avatar": "/src/assets/images/avatar_founder_user_1791282046459.jpg",
       "plan": "free",
-      "generationsUsed": 0,
+      "generationsUsed": 2,
       "maxFreeGenerations": 5,
       "createdAt": "2026-10-06T10:37:41.696Z"
+    },
+    {
+      "id": "user_1791285166553_6xzp",
+      "name": "Sara Khan",
+      "email": "test_1791285166547@example.com",
+      "avatar": "/src/assets/images/avatar_founder_user_1791282046459.jpg",
+      "plan": "free",
+      "generationsUsed": 0,
+      "maxFreeGenerations": 5,
+      "createdAt": "2026-10-06T11:12:46.553Z"
+    },
+    {
+      "id": "user_1791286685703_ztvx",
+      "name": "Jordan Test",
+      "email": "jordan.test@studio.design",
+      "avatar": "/src/assets/images/avatar_founder_user_1791282046459.jpg",
+      "plan": "free",
+      "generationsUsed": 0,
+      "maxFreeGenerations": 5,
+      "createdAt": "2026-10-06T11:38:05.703Z"
     }
   ],
   "passwords": {
     "user_demo_1": "password123",
-    "user_1791283061696_w8tl": "124578"
+    "user_1791283061696_w8tl": "124578",
+    "user_1791285166553_6xzp": "securePassword123",
+    "user_1791286685703_ztvx": "password123"
   },
   "projects": [
     {
@@ -2622,6 +2645,1300 @@
     }
   ],
   "history": [
+    {
+      "id": "hist_1791285385956_qhs7",
+      "userId": "user_1791283061696_w8tl",
+      "websiteName": "dentist",
+      "category": "Education",
+      "style": "Professional",
+      "promptSummary": "Professional Education palette: Professional & Developers-Focused: Engineered specifically for dentist in the Education sector.",
+      "primaryHex": "#D0A525",
+      "secondaryHex": "#ABC841",
+      "backgroundHex": "#FBFAF9",
+      "textHex": "#262112",
+      "colorSystem": {
+        "id": "cs_1791285385956_oj430",
+        "websiteName": "dentist",
+        "category": "Education",
+        "description": "dentist",
+        "targetAudience": "Developers",
+        "style": "Professional",
+        "themePreference": "both",
+        "activeTheme": "light",
+        "lightPalette": {
+          "primary": {
+            "name": "Primary Anchor",
+            "hex": "#D0A525",
+            "rgb": "rgb(208, 165, 37)",
+            "hsl": "hsl(45, 70%, 48%)",
+            "usage": "Main brand anchor, high-intent CTA buttons, active tabs, header logo highlights"
+          },
+          "secondary": {
+            "name": "Secondary Tone",
+            "hex": "#ABC841",
+            "rgb": "rgb(171, 200, 65)",
+            "hsl": "hsl(73, 55%, 52%)",
+            "usage": "Secondary buttons, feature tags, interactive hover indicators, subtle backdrops"
+          },
+          "accent": {
+            "name": "Accent Highlight",
+            "hex": "#18ABDC",
+            "rgb": "rgb(24, 171, 220)",
+            "hsl": "hsl(195, 80%, 48%)",
+            "usage": "Key focus rings, conversion badges, active notification dots, spark highlights"
+          },
+          "background": {
+            "name": "Canvas Off-White",
+            "hex": "#FBFAF9",
+            "rgb": "rgb(251, 250, 249)",
+            "hsl": "hsl(30, 20%, 98%)",
+            "usage": "Primary viewport background, page body canvas"
+          },
+          "surface": {
+            "name": "Surface White",
+            "hex": "#FFFFFF",
+            "rgb": "rgb(255, 255, 255)",
+            "hsl": "hsl(0, 0%, 100%)",
+            "usage": "Card containers, sidebar panels, modal bodies, navigation bar"
+          },
+          "card": {
+            "name": "Elevated Card",
+            "hex": "#FFFFFF",
+            "rgb": "rgb(255, 255, 255)",
+            "hsl": "hsl(0, 0%, 100%)",
+            "usage": "Interactive cards, feature spotlights, content tiles"
+          },
+          "text": {
+            "name": "Deep Charcoal Text",
+            "hex": "#262112",
+            "rgb": "rgb(38, 33, 18)",
+            "hsl": "hsl(45, 36%, 11%)",
+            "usage": "Display headers, high-contrast title typography, primary body copy"
+          },
+          "mutedText": {
+            "name": "Slate Subtitle",
+            "hex": "#7B735B",
+            "rgb": "rgb(123, 115, 91)",
+            "hsl": "hsl(45, 15%, 42%)",
+            "usage": "Secondary metadata, helper hints, timestamps, tabular captions"
+          },
+          "border": {
+            "name": "Hairline Neutral Border",
+            "hex": "#EAE8E1",
+            "rgb": "rgb(234, 232, 225)",
+            "hsl": "hsl(47, 18%, 90%)",
+            "usage": "Structural container dividing lines, table row borders, card outlines"
+          },
+          "success": {
+            "name": "Emerald Success",
+            "hex": "#10B981",
+            "rgb": "rgb(16, 185, 129)",
+            "hsl": "hsl(160, 84%, 39%)",
+            "usage": "Confirmation banners, positive metrics, verified credentials"
+          },
+          "warning": {
+            "name": "Amber Warning",
+            "hex": "#F59E0B",
+            "rgb": "rgb(245, 158, 11)",
+            "hsl": "hsl(38, 92%, 50%)",
+            "usage": "Approaching deadlines, caution alerts, quota usage indicators"
+          },
+          "error": {
+            "name": "Crimson Error",
+            "hex": "#EF4444",
+            "rgb": "rgb(239, 68, 68)",
+            "hsl": "hsl(0, 84%, 60%)",
+            "usage": "Validation failures, destructive actions, critical error states"
+          },
+          "info": {
+            "name": "Cyan Info",
+            "hex": "#0EA5E9",
+            "rgb": "rgb(14, 165, 233)",
+            "hsl": "hsl(199, 89%, 48%)",
+            "usage": "Informational tooltips, educational hints, inline update banners"
+          },
+          "button": {
+            "name": "Primary Button Solid",
+            "hex": "#D0A525",
+            "rgb": "rgb(208, 165, 37)",
+            "hsl": "hsl(45, 70%, 48%)",
+            "usage": "Primary CTA action background"
+          },
+          "buttonHover": {
+            "name": "Button Hover Shade",
+            "hex": "#B69120",
+            "rgb": "rgb(182, 145, 32)",
+            "hsl": "hsl(45, 70%, 42%)",
+            "usage": "Hover state for primary action buttons"
+          },
+          "buttonText": {
+            "name": "Button Label Crisp",
+            "hex": "#FFFFFF",
+            "rgb": "rgb(255, 255, 255)",
+            "hsl": "hsl(0, 0%, 100%)",
+            "usage": "High-contrast typography inside primary solid buttons"
+          },
+          "link": {
+            "name": "Interactive Link",
+            "hex": "#D0A525",
+            "rgb": "rgb(208, 165, 37)",
+            "hsl": "hsl(45, 70%, 48%)",
+            "usage": "Inline hyperlinks, clickable text navigation"
+          },
+          "linkHover": {
+            "name": "Link Hover Darkened",
+            "hex": "#A5831D",
+            "rgb": "rgb(165, 131, 29)",
+            "hsl": "hsl(45, 70%, 38%)",
+            "usage": "Hover state for interactive hyperlinks"
+          }
+        },
+        "darkPalette": {
+          "primary": {
+            "name": "Primary Bright",
+            "hex": "#E4BC44",
+            "rgb": "rgb(228, 188, 68)",
+            "hsl": "hsl(45, 75%, 58%)",
+            "usage": "Main brand anchor, high-intent CTA buttons in dark canvas"
+          },
+          "secondary": {
+            "name": "Secondary Soft",
+            "hex": "#C5E25A",
+            "rgb": "rgb(197, 226, 90)",
+            "hsl": "hsl(73, 70%, 62%)",
+            "usage": "Secondary actions, feature accents, border glow cues"
+          },
+          "accent": {
+            "name": "Vibrant Accent",
+            "hex": "#42C4F0",
+            "rgb": "rgb(66, 196, 240)",
+            "hsl": "hsl(195, 85%, 60%)",
+            "usage": "High-contrast conversion points, highlight markers"
+          },
+          "background": {
+            "name": "Canvas Void Obsidian",
+            "hex": "#191710",
+            "rgb": "rgb(25, 23, 16)",
+            "hsl": "hsl(47, 22%, 8%)",
+            "usage": "Deep immersive viewport background"
+          },
+          "surface": {
+            "name": "Surface Slate Depth",
+            "hex": "#27241B",
+            "rgb": "rgb(39, 36, 27)",
+            "hsl": "hsl(45, 18%, 13%)",
+            "usage": "Elevation level 1 cards, dropdown menus, sidebar backdrop"
+          },
+          "card": {
+            "name": "Card Elevation Slate",
+            "hex": "#2F2C22",
+            "rgb": "rgb(47, 44, 34)",
+            "hsl": "hsl(46, 16%, 16%)",
+            "usage": "Structured content tiles, preview modules"
+          },
+          "text": {
+            "name": "Crisp White Text",
+            "hex": "#F7F6F2",
+            "rgb": "rgb(247, 246, 242)",
+            "hsl": "hsl(48, 24%, 96%)",
+            "usage": "Headings, primary body prose in dark mode"
+          },
+          "mutedText": {
+            "name": "Soft Slate Muted",
+            "hex": "#B2AC99",
+            "rgb": "rgb(178, 172, 153)",
+            "hsl": "hsl(46, 14%, 65%)",
+            "usage": "Captions, timestamps, secondary labels in dark canvas"
+          },
+          "border": {
+            "name": "Dark Hairline Border",
+            "hex": "#3B372B",
+            "rgb": "rgb(59, 55, 43)",
+            "hsl": "hsl(45, 16%, 20%)",
+            "usage": "1px structural dividers in dark interface"
+          },
+          "success": {
+            "name": "Emerald Glow",
+            "hex": "#34D399",
+            "rgb": "rgb(52, 211, 153)",
+            "hsl": "hsl(158, 64%, 52%)",
+            "usage": "Success confirmation badges in dark mode"
+          },
+          "warning": {
+            "name": "Amber Glow",
+            "hex": "#FBBF24",
+            "rgb": "rgb(251, 191, 36)",
+            "hsl": "hsl(43, 96%, 56%)",
+            "usage": "Alert callouts in dark mode"
+          },
+          "error": {
+            "name": "Rose Error",
+            "hex": "#F87171",
+            "rgb": "rgb(248, 113, 113)",
+            "hsl": "hsl(0, 91%, 71%)",
+            "usage": "Error messages and validation indicators"
+          },
+          "info": {
+            "name": "Sky Blue Glow",
+            "hex": "#38BDF8",
+            "rgb": "rgb(56, 189, 248)",
+            "hsl": "hsl(198, 93%, 60%)",
+            "usage": "Informational tags in dark interface"
+          },
+          "button": {
+            "name": "Primary Action Dark",
+            "hex": "#E4BC44",
+            "rgb": "rgb(228, 188, 68)",
+            "hsl": "hsl(45, 75%, 58%)",
+            "usage": "Primary CTA button background"
+          },
+          "buttonHover": {
+            "name": "Action Hover Lightened",
+            "hex": "#E4C567",
+            "rgb": "rgb(228, 197, 103)",
+            "hsl": "hsl(45, 70%, 65%)",
+            "usage": "Hover state for primary buttons in dark mode"
+          },
+          "buttonText": {
+            "name": "Dark Button Label",
+            "hex": "#0B0F19",
+            "rgb": "rgb(11, 15, 25)",
+            "hsl": "hsl(223, 39%, 7%)",
+            "usage": "Contrasting text inside vibrant button in dark mode"
+          },
+          "link": {
+            "name": "Interactive Dark Link",
+            "hex": "#E4BC44",
+            "rgb": "rgb(228, 188, 68)",
+            "hsl": "hsl(45, 75%, 58%)",
+            "usage": "Clickable links in dark mode"
+          },
+          "linkHover": {
+            "name": "Link Hover Dark",
+            "hex": "#E8CD7D",
+            "rgb": "rgb(232, 205, 125)",
+            "hsl": "hsl(45, 70%, 70%)",
+            "usage": "Hover state for dark links"
+          }
+        },
+        "colorScales": {
+          "primary": [
+            {
+              "step": "50",
+              "hex": "#FAF7EF",
+              "rgb": "rgb(250, 247, 239)",
+              "hsl": "hsl(45, 53%, 96%)"
+            },
+            {
+              "step": "100",
+              "hex": "#F8F0D8",
+              "rgb": "rgb(248, 240, 216)",
+              "hsl": "hsl(45, 70%, 91%)"
+            },
+            {
+              "step": "200",
+              "hex": "#F2E3B5",
+              "rgb": "rgb(242, 227, 181)",
+              "hsl": "hsl(45, 70%, 83%)"
+            },
+            {
+              "step": "300",
+              "hex": "#EAD186",
+              "rgb": "rgb(234, 209, 134)",
+              "hsl": "hsl(45, 70%, 72%)"
+            },
+            {
+              "step": "400",
+              "hex": "#E0BD52",
+              "rgb": "rgb(224, 189, 82)",
+              "hsl": "hsl(45, 70%, 60%)"
+            },
+            {
+              "step": "500",
+              "hex": "#D4A925",
+              "rgb": "rgb(212, 169, 37)",
+              "hsl": "hsl(45, 70%, 49%)"
+            },
+            {
+              "step": "600",
+              "hex": "#AD8A1F",
+              "rgb": "rgb(173, 138, 31)",
+              "hsl": "hsl(45, 70%, 40%)"
+            },
+            {
+              "step": "700",
+              "hex": "#8B6E18",
+              "rgb": "rgb(139, 110, 24)",
+              "hsl": "hsl(45, 70%, 32%)"
+            },
+            {
+              "step": "800",
+              "hex": "#644F12",
+              "rgb": "rgb(100, 79, 18)",
+              "hsl": "hsl(45, 70%, 23%)"
+            },
+            {
+              "step": "900",
+              "hex": "#41340B",
+              "rgb": "rgb(65, 52, 11)",
+              "hsl": "hsl(45, 70%, 15%)"
+            },
+            {
+              "step": "950",
+              "hex": "#231D0B",
+              "rgb": "rgb(35, 29, 11)",
+              "hsl": "hsl(45, 53%, 9%)"
+            }
+          ],
+          "secondary": [
+            {
+              "step": "50",
+              "hex": "#F7F9F1",
+              "rgb": "rgb(247, 249, 241)",
+              "hsl": "hsl(73, 41%, 96%)"
+            },
+            {
+              "step": "100",
+              "hex": "#EFF5DB",
+              "rgb": "rgb(239, 245, 219)",
+              "hsl": "hsl(73, 55%, 91%)"
+            },
+            {
+              "step": "200",
+              "hex": "#E1EBBC",
+              "rgb": "rgb(225, 235, 188)",
+              "hsl": "hsl(73, 55%, 83%)"
+            },
+            {
+              "step": "300",
+              "hex": "#CEDF90",
+              "rgb": "rgb(206, 223, 144)",
+              "hsl": "hsl(73, 55%, 72%)"
+            },
+            {
+              "step": "400",
+              "hex": "#B9D161",
+              "rgb": "rgb(185, 209, 97)",
+              "hsl": "hsl(73, 55%, 60%)"
+            },
+            {
+              "step": "500",
+              "hex": "#A4C238",
+              "rgb": "rgb(164, 194, 56)",
+              "hsl": "hsl(73, 55%, 49%)"
+            },
+            {
+              "step": "600",
+              "hex": "#869E2E",
+              "rgb": "rgb(134, 158, 46)",
+              "hsl": "hsl(73, 55%, 40%)"
+            },
+            {
+              "step": "700",
+              "hex": "#6B7E25",
+              "rgb": "rgb(107, 126, 37)",
+              "hsl": "hsl(73, 55%, 32%)"
+            },
+            {
+              "step": "800",
+              "hex": "#4D5B1A",
+              "rgb": "rgb(77, 91, 26)",
+              "hsl": "hsl(73, 55%, 23%)"
+            },
+            {
+              "step": "900",
+              "hex": "#323B11",
+              "rgb": "rgb(50, 59, 17)",
+              "hsl": "hsl(73, 55%, 15%)"
+            },
+            {
+              "step": "950",
+              "hex": "#1C200D",
+              "rgb": "rgb(28, 32, 13)",
+              "hsl": "hsl(73, 41%, 9%)"
+            }
+          ],
+          "accent": [
+            {
+              "step": "50",
+              "hex": "#EFF8FB",
+              "rgb": "rgb(239, 248, 251)",
+              "hsl": "hsl(195, 60%, 96%)"
+            },
+            {
+              "step": "100",
+              "hex": "#D6F1FA",
+              "rgb": "rgb(214, 241, 250)",
+              "hsl": "hsl(195, 80%, 91%)"
+            },
+            {
+              "step": "200",
+              "hex": "#B1E5F6",
+              "rgb": "rgb(177, 229, 246)",
+              "hsl": "hsl(195, 80%, 83%)"
+            },
+            {
+              "step": "300",
+              "hex": "#7ED4F1",
+              "rgb": "rgb(126, 212, 241)",
+              "hsl": "hsl(195, 80%, 72%)"
+            },
+            {
+              "step": "400",
+              "hex": "#47C2EB",
+              "rgb": "rgb(71, 194, 235)",
+              "hsl": "hsl(195, 80%, 60%)"
+            },
+            {
+              "step": "500",
+              "hex": "#19AFE1",
+              "rgb": "rgb(25, 175, 225)",
+              "hsl": "hsl(195, 80%, 49%)"
+            },
+            {
+              "step": "600",
+              "hex": "#148FB8",
+              "rgb": "rgb(20, 143, 184)",
+              "hsl": "hsl(195, 80%, 40%)"
+            },
+            {
+              "step": "700",
+              "hex": "#107293",
+              "rgb": "rgb(16, 114, 147)",
+              "hsl": "hsl(195, 80%, 32%)"
+            },
+            {
+              "step": "800",
+              "hex": "#0C526A",
+              "rgb": "rgb(12, 82, 106)",
+              "hsl": "hsl(195, 80%, 23%)"
+            },
+            {
+              "step": "900",
+              "hex": "#083645",
+              "rgb": "rgb(8, 54, 69)",
+              "hsl": "hsl(195, 80%, 15%)"
+            },
+            {
+              "step": "950",
+              "hex": "#091E25",
+              "rgb": "rgb(9, 30, 37)",
+              "hsl": "hsl(195, 60%, 9%)"
+            }
+          ]
+        },
+        "brandExplanation": {
+          "brandPersonality": "Professional & Developers-Focused: Engineered specifically for dentist in the Education sector.",
+          "colorPsychology": "The foundation anchored around hue 45° radiates professional credibility, cognitive clarity, and aesthetic distinction. Balanced chromatic tension stimulates user focus toward primary actions while maintaining visual comfort.",
+          "whyTheseColorsWork": "The system adheres strictly to the 60-30-10 distribution rule: 60% neutral canvas allows your website's content to breathe; 30% structural surfaces separate hierarchical planes; and 10% intentional accent brings decisive attention to conversions.",
+          "recommendedUsage": [
+            "Reserve the Primary color exclusively for primary call-to-actions, hero buttons, and active tabs.",
+            "Use the Secondary color for badges, secondary button outlines, and supporting UI layers.",
+            "Maintain surface borders with the hairline border token rather than heavy shadows to keep the design clean.",
+            "Utilize the Accent color sparingly for notifications, key callouts, or stat highlights."
+          ],
+          "thingsToAvoid": [
+            "Do not apply the primary brand color to entire section backgrounds, which over-saturates the viewport.",
+            "Avoid colored text on colored backgrounds without checking the AAA/AA contrast ratios.",
+            "Never mix warm-tinted borders with cool-slate backgrounds."
+          ]
+        },
+        "accessibility": [
+          {
+            "pair": "Body Text vs Background",
+            "foreground": "#262112",
+            "background": "#FBFAF9",
+            "ratio": 15.39,
+            "rating": "AAA"
+          },
+          {
+            "pair": "Heading / Link vs Background",
+            "foreground": "#D0A525",
+            "background": "#FBFAF9",
+            "ratio": 2.22,
+            "rating": "Fail",
+            "recommendation": "Increase luminosity delta between Interactive Link and Canvas Off-White. Interactive links should clearly stand out against background without sacrificing legibility."
+          },
+          {
+            "pair": "Button Text vs Button",
+            "foreground": "#FFFFFF",
+            "background": "#D0A525",
+            "ratio": 2.31,
+            "rating": "Fail",
+            "recommendation": "Increase luminosity delta between Button Label Crisp and Primary Button Solid. Ensure high contrast for call-to-action button labels to minimize user friction."
+          },
+          {
+            "pair": "Muted Text vs Surface",
+            "foreground": "#7B735B",
+            "background": "#FFFFFF",
+            "ratio": 4.72,
+            "rating": "AA"
+          },
+          {
+            "pair": "Primary Accent vs Background",
+            "foreground": "#D0A525",
+            "background": "#FBFAF9",
+            "ratio": 2.22,
+            "rating": "Fail",
+            "recommendation": "Increase luminosity delta between Primary Anchor and Canvas Off-White. Brand color on canvas should maintain sufficient contrast for iconography and key visual cues."
+          }
+        ],
+        "harmonies": [
+          {
+            "type": "Complementary",
+            "description": "Opposite on the color wheel; provides high contrast and energetic emphasis.",
+            "colors": [
+              {
+                "name": "Base",
+                "hex": "#D0A525",
+                "role": "Base tone"
+              },
+              {
+                "name": "Complement",
+                "hex": "#2550D0",
+                "role": "Opposing accent"
+              }
+            ]
+          },
+          {
+            "type": "Analogous",
+            "description": "Adjacent colors on the wheel; creates serene and harmonious visual flow.",
+            "colors": [
+              {
+                "name": "Analogous -30°",
+                "hex": "#D05025",
+                "role": "Neighboring cool"
+              },
+              {
+                "name": "Base",
+                "hex": "#D0A525",
+                "role": "Base tone"
+              },
+              {
+                "name": "Analogous +30°",
+                "hex": "#A5D025",
+                "role": "Neighboring warm"
+              }
+            ]
+          },
+          {
+            "type": "Triadic",
+            "description": "Three evenly spaced colors (120° apart); vibrant yet balanced.",
+            "colors": [
+              {
+                "name": "Base",
+                "hex": "#D0A525",
+                "role": "Primary anchor"
+              },
+              {
+                "name": "Triad 1",
+                "hex": "#25D0A5",
+                "role": "Secondary energy"
+              },
+              {
+                "name": "Triad 2",
+                "hex": "#A525D0",
+                "role": "Supporting accent"
+              }
+            ]
+          },
+          {
+            "type": "Split Complementary",
+            "description": "The base color plus two colors adjacent to its complement; rich nuance with less tension.",
+            "colors": [
+              {
+                "name": "Base",
+                "hex": "#D0A525",
+                "role": "Anchor"
+              },
+              {
+                "name": "Split Left",
+                "hex": "#25A5D0",
+                "role": "Warm split"
+              },
+              {
+                "name": "Split Right",
+                "hex": "#5025D0",
+                "role": "Cool split"
+              }
+            ]
+          },
+          {
+            "type": "Tetradic",
+            "description": "Two complementary pairs (90° apart); dynamic range suitable for rich multi-card layouts.",
+            "colors": [
+              {
+                "name": "Base",
+                "hex": "#D0A525",
+                "role": "Dominant"
+              },
+              {
+                "name": "Shift +90°",
+                "hex": "#25D050",
+                "role": "Sub-dominant"
+              },
+              {
+                "name": "Complement",
+                "hex": "#2550D0",
+                "role": "Contrast"
+              },
+              {
+                "name": "Shift +270°",
+                "hex": "#D025A5",
+                "role": "Tertiary accent"
+              }
+            ]
+          }
+        ],
+        "createdAt": "2026-10-06T11:16:25.956Z"
+      },
+      "createdAt": "2026-10-06T11:16:25.956Z"
+    },
+    {
+      "id": "hist_1791283882824_iqwr",
+      "userId": "user_1791283061696_w8tl",
+      "websiteName": "fastfood",
+      "category": "Agency",
+      "style": "Professional",
+      "promptSummary": "Professional Agency palette: Sophisticated, fast-paced, and technically proficient.",
+      "primaryHex": "#4F46E5",
+      "secondaryHex": "#64748B",
+      "backgroundHex": "#F8FAFC",
+      "textHex": "#0F172A",
+      "colorSystem": {
+        "id": "cs_1791283882824_emohe",
+        "websiteName": "fastfood",
+        "category": "Agency",
+        "description": "my fastfood",
+        "targetAudience": "Developers",
+        "style": "Professional",
+        "themePreference": "dark",
+        "activeTheme": "dark",
+        "lightPalette": {
+          "primary": {
+            "name": "Electric Indigo",
+            "hex": "#4F46E5",
+            "rgb": "rgb(79, 70, 229)",
+            "hsl": "hsl(243, 75%, 59%)",
+            "usage": "Primary CTA, active states"
+          },
+          "secondary": {
+            "name": "Slate Gray",
+            "hex": "#64748B",
+            "rgb": "rgb(100, 116, 139)",
+            "hsl": "hsl(215, 16%, 47%)",
+            "usage": "Secondary buttons, iconography"
+          },
+          "accent": {
+            "name": "Neon Cyan",
+            "hex": "#06B6D4",
+            "rgb": "rgb(6, 182, 212)",
+            "hsl": "hsl(189, 94%, 43%)",
+            "usage": "Highlights, code snippets"
+          },
+          "background": {
+            "name": "Off White",
+            "hex": "#F8FAFC",
+            "rgb": "rgb(248, 250, 252)",
+            "hsl": "hsl(210, 40%, 98%)",
+            "usage": "Main body background"
+          },
+          "surface": {
+            "name": "Pure White",
+            "hex": "#FFFFFF",
+            "rgb": "rgb(255, 255, 255)",
+            "hsl": "hsl(0, 0%, 100%)",
+            "usage": "Content containers"
+          },
+          "card": {
+            "name": "Light Gray",
+            "hex": "#F1F5F9",
+            "rgb": "rgb(241, 245, 249)",
+            "hsl": "hsl(210, 40%, 96%)",
+            "usage": "Elevated panels"
+          },
+          "text": {
+            "name": "Ink Black",
+            "hex": "#0F172A",
+            "rgb": "rgb(15, 23, 42)",
+            "hsl": "hsl(222, 47%, 11%)",
+            "usage": "Primary headlines"
+          },
+          "mutedText": {
+            "name": "Cool Gray",
+            "hex": "#475569",
+            "rgb": "rgb(71, 85, 105)",
+            "hsl": "hsl(215, 19%, 35%)",
+            "usage": "Body copy"
+          },
+          "border": {
+            "name": "Iron Border",
+            "hex": "#E2E8F0",
+            "rgb": "rgb(226, 232, 240)",
+            "hsl": "hsl(214, 32%, 91%)",
+            "usage": "Dividers and inputs"
+          },
+          "success": {
+            "name": "Emerald",
+            "hex": "#10B981",
+            "rgb": "rgb(16, 185, 129)",
+            "hsl": "hsl(160, 84%, 39%)",
+            "usage": "Validation success"
+          },
+          "warning": {
+            "name": "Amber",
+            "hex": "#F59E0B",
+            "rgb": "rgb(245, 158, 11)",
+            "hsl": "hsl(38, 92%, 50%)",
+            "usage": "Alerts"
+          },
+          "error": {
+            "name": "Rose",
+            "hex": "#E11D48",
+            "rgb": "rgb(225, 29, 72)",
+            "hsl": "hsl(347, 77%, 50%)",
+            "usage": "Destructive actions"
+          },
+          "info": {
+            "name": "Sky",
+            "hex": "#0EA5E9",
+            "rgb": "rgb(14, 165, 233)",
+            "hsl": "hsl(199, 89%, 48%)",
+            "usage": "Informational badges"
+          },
+          "button": {
+            "name": "Electric Indigo",
+            "hex": "#4F46E5",
+            "rgb": "rgb(79, 70, 229)",
+            "hsl": "hsl(243, 75%, 59%)",
+            "usage": "Primary button background"
+          },
+          "buttonHover": {
+            "name": "Deep Indigo",
+            "hex": "#4338CA",
+            "rgb": "rgb(67, 56, 202)",
+            "hsl": "hsl(245, 58%, 51%)",
+            "usage": "Button hover interaction"
+          },
+          "buttonText": {
+            "name": "White",
+            "hex": "#FFFFFF",
+            "rgb": "rgb(255, 255, 255)",
+            "hsl": "hsl(0, 0%, 100%)",
+            "usage": "Text on primary buttons"
+          },
+          "link": {
+            "name": "Electric Indigo",
+            "hex": "#4F46E5",
+            "rgb": "rgb(79, 70, 229)",
+            "hsl": "hsl(243, 75%, 59%)",
+            "usage": "Hyperlinks"
+          },
+          "linkHover": {
+            "name": "Deep Indigo",
+            "hex": "#4338CA",
+            "rgb": "rgb(67, 56, 202)",
+            "hsl": "hsl(245, 58%, 51%)",
+            "usage": "Link hover state"
+          }
+        },
+        "darkPalette": {
+          "primary": {
+            "name": "Electric Indigo",
+            "hex": "#6366F1",
+            "rgb": "rgb(99, 102, 241)",
+            "hsl": "hsl(239, 84%, 67%)",
+            "usage": "Primary CTA"
+          },
+          "secondary": {
+            "name": "Slate Blue",
+            "hex": "#94A3B8",
+            "rgb": "rgb(148, 163, 184)",
+            "hsl": "hsl(215, 20%, 65%)",
+            "usage": "Subtle UI elements"
+          },
+          "accent": {
+            "name": "Neon Cyan",
+            "hex": "#22D3EE",
+            "rgb": "rgb(34, 211, 238)",
+            "hsl": "hsl(188, 86%, 53%)",
+            "usage": "Code syntax highlighting"
+          },
+          "background": {
+            "name": "Deep Charcoal",
+            "hex": "#0F172A",
+            "rgb": "rgb(15, 23, 42)",
+            "hsl": "hsl(222, 47%, 11%)",
+            "usage": "Main dark background"
+          },
+          "surface": {
+            "name": "Obsidian",
+            "hex": "#1E293B",
+            "rgb": "rgb(30, 41, 59)",
+            "hsl": "hsl(217, 33%, 17%)",
+            "usage": "Panels and cards"
+          },
+          "card": {
+            "name": "Slate Night",
+            "hex": "#334155",
+            "rgb": "rgb(51, 65, 85)",
+            "hsl": "hsl(215, 25%, 27%)",
+            "usage": "Elevated cards"
+          },
+          "text": {
+            "name": "White",
+            "hex": "#F8FAFC",
+            "rgb": "rgb(248, 250, 252)",
+            "hsl": "hsl(210, 40%, 98%)",
+            "usage": "Primary content"
+          },
+          "mutedText": {
+            "name": "Blue Gray",
+            "hex": "#94A3B8",
+            "rgb": "rgb(148, 163, 184)",
+            "hsl": "hsl(215, 20%, 65%)",
+            "usage": "Secondary information"
+          },
+          "border": {
+            "name": "Dark Steel",
+            "hex": "#334155",
+            "rgb": "rgb(51, 65, 85)",
+            "hsl": "hsl(215, 25%, 27%)",
+            "usage": "Input strokes"
+          },
+          "success": {
+            "name": "Mint",
+            "hex": "#34D399",
+            "rgb": "rgb(52, 211, 153)",
+            "hsl": "hsl(158, 64%, 52%)",
+            "usage": "Success states"
+          },
+          "warning": {
+            "name": "Sunshine",
+            "hex": "#FBBF24",
+            "rgb": "rgb(251, 191, 36)",
+            "hsl": "hsl(43, 96%, 56%)",
+            "usage": "Warnings"
+          },
+          "error": {
+            "name": "Crimson",
+            "hex": "#FB7185",
+            "rgb": "rgb(251, 113, 133)",
+            "hsl": "hsl(351, 95%, 71%)",
+            "usage": "Error states"
+          },
+          "info": {
+            "name": "Sky Blue",
+            "hex": "#38BDF8",
+            "rgb": "rgb(56, 189, 248)",
+            "hsl": "hsl(198, 93%, 60%)",
+            "usage": "Information"
+          },
+          "button": {
+            "name": "Electric Indigo",
+            "hex": "#6366F1",
+            "rgb": "rgb(99, 102, 241)",
+            "hsl": "hsl(239, 84%, 67%)",
+            "usage": "Primary button fill"
+          },
+          "buttonHover": {
+            "name": "Soft Indigo",
+            "hex": "#818CF8",
+            "rgb": "rgb(129, 140, 248)",
+            "hsl": "hsl(234, 89%, 74%)",
+            "usage": "Button hover"
+          },
+          "buttonText": {
+            "name": "White",
+            "hex": "#FFFFFF",
+            "rgb": "rgb(255, 255, 255)",
+            "hsl": "hsl(0, 0%, 100%)",
+            "usage": "Button typography"
+          },
+          "link": {
+            "name": "Cyan Glow",
+            "hex": "#22D3EE",
+            "rgb": "rgb(34, 211, 238)",
+            "hsl": "hsl(188, 86%, 53%)",
+            "usage": "Links"
+          },
+          "linkHover": {
+            "name": "Bright White",
+            "hex": "#E2E8F0",
+            "rgb": "rgb(226, 232, 240)",
+            "hsl": "hsl(214, 32%, 91%)",
+            "usage": "Link hover"
+          }
+        },
+        "colorScales": {
+          "primary": [
+            {
+              "step": "50",
+              "hex": "#F0EFFB",
+              "rgb": "rgb(240, 239, 251)",
+              "hsl": "hsl(243, 56%, 96%)"
+            },
+            {
+              "step": "100",
+              "hex": "#D9D7F9",
+              "rgb": "rgb(217, 215, 249)",
+              "hsl": "hsl(243, 75%, 91%)"
+            },
+            {
+              "step": "200",
+              "hex": "#B6B3F4",
+              "rgb": "rgb(182, 179, 244)",
+              "hsl": "hsl(243, 75%, 83%)"
+            },
+            {
+              "step": "300",
+              "hex": "#8782ED",
+              "rgb": "rgb(135, 130, 237)",
+              "hsl": "hsl(243, 75%, 72%)"
+            },
+            {
+              "step": "400",
+              "hex": "#544CE6",
+              "rgb": "rgb(84, 76, 230)",
+              "hsl": "hsl(243, 75%, 60%)"
+            },
+            {
+              "step": "500",
+              "hex": "#291FDB",
+              "rgb": "rgb(41, 31, 219)",
+              "hsl": "hsl(243, 75%, 49%)"
+            },
+            {
+              "step": "600",
+              "hex": "#2119B3",
+              "rgb": "rgb(33, 25, 179)",
+              "hsl": "hsl(243, 75%, 40%)"
+            },
+            {
+              "step": "700",
+              "hex": "#1B148F",
+              "rgb": "rgb(27, 20, 143)",
+              "hsl": "hsl(243, 75%, 32%)"
+            },
+            {
+              "step": "800",
+              "hex": "#130F67",
+              "rgb": "rgb(19, 15, 103)",
+              "hsl": "hsl(243, 75%, 23%)"
+            },
+            {
+              "step": "900",
+              "hex": "#0C0A43",
+              "rgb": "rgb(12, 10, 67)",
+              "hsl": "hsl(243, 75%, 15%)"
+            },
+            {
+              "step": "950",
+              "hex": "#0B0A24",
+              "rgb": "rgb(11, 10, 36)",
+              "hsl": "hsl(243, 56%, 9%)"
+            }
+          ],
+          "secondary": [
+            {
+              "step": "50",
+              "hex": "#F4F5F6",
+              "rgb": "rgb(244, 245, 246)",
+              "hsl": "hsl(215, 12%, 96%)"
+            },
+            {
+              "step": "100",
+              "hex": "#E4E7EC",
+              "rgb": "rgb(228, 231, 236)",
+              "hsl": "hsl(215, 16%, 91%)"
+            },
+            {
+              "step": "200",
+              "hex": "#CDD2DB",
+              "rgb": "rgb(205, 210, 219)",
+              "hsl": "hsl(215, 16%, 83%)"
+            },
+            {
+              "step": "300",
+              "hex": "#ACB6C3",
+              "rgb": "rgb(172, 182, 195)",
+              "hsl": "hsl(215, 16%, 72%)"
+            },
+            {
+              "step": "400",
+              "hex": "#8996A9",
+              "rgb": "rgb(137, 150, 169)",
+              "hsl": "hsl(215, 16%, 60%)"
+            },
+            {
+              "step": "500",
+              "hex": "#697A91",
+              "rgb": "rgb(105, 122, 145)",
+              "hsl": "hsl(215, 16%, 49%)"
+            },
+            {
+              "step": "600",
+              "hex": "#566376",
+              "rgb": "rgb(86, 99, 118)",
+              "hsl": "hsl(215, 16%, 40%)"
+            },
+            {
+              "step": "700",
+              "hex": "#454F5F",
+              "rgb": "rgb(69, 79, 95)",
+              "hsl": "hsl(215, 16%, 32%)"
+            },
+            {
+              "step": "800",
+              "hex": "#313944",
+              "rgb": "rgb(49, 57, 68)",
+              "hsl": "hsl(215, 16%, 23%)"
+            },
+            {
+              "step": "900",
+              "hex": "#20252C",
+              "rgb": "rgb(32, 37, 44)",
+              "hsl": "hsl(215, 16%, 15%)"
+            },
+            {
+              "step": "950",
+              "hex": "#14161A",
+              "rgb": "rgb(20, 22, 26)",
+              "hsl": "hsl(215, 12%, 9%)"
+            }
+          ],
+          "accent": [
+            {
+              "step": "50",
+              "hex": "#EEFAFC",
+              "rgb": "rgb(238, 250, 252)",
+              "hsl": "hsl(189, 71%, 96%)"
+            },
+            {
+              "step": "100",
+              "hex": "#D2F7FE",
+              "rgb": "rgb(210, 247, 254)",
+              "hsl": "hsl(189, 94%, 91%)"
+            },
+            {
+              "step": "200",
+              "hex": "#ABF0FC",
+              "rgb": "rgb(171, 240, 252)",
+              "hsl": "hsl(189, 94%, 83%)"
+            },
+            {
+              "step": "300",
+              "hex": "#74E7FB",
+              "rgb": "rgb(116, 231, 251)",
+              "hsl": "hsl(189, 94%, 72%)"
+            },
+            {
+              "step": "400",
+              "hex": "#39DCF9",
+              "rgb": "rgb(57, 220, 249)",
+              "hsl": "hsl(189, 94%, 60%)"
+            },
+            {
+              "step": "500",
+              "hex": "#07CFF2",
+              "rgb": "rgb(7, 207, 242)",
+              "hsl": "hsl(189, 94%, 49%)"
+            },
+            {
+              "step": "600",
+              "hex": "#06A9C6",
+              "rgb": "rgb(6, 169, 198)",
+              "hsl": "hsl(189, 94%, 40%)"
+            },
+            {
+              "step": "700",
+              "hex": "#05879E",
+              "rgb": "rgb(5, 135, 158)",
+              "hsl": "hsl(189, 94%, 32%)"
+            },
+            {
+              "step": "800",
+              "hex": "#046172",
+              "rgb": "rgb(4, 97, 114)",
+              "hsl": "hsl(189, 94%, 23%)"
+            },
+            {
+              "step": "900",
+              "hex": "#023F4A",
+              "rgb": "rgb(2, 63, 74)",
+              "hsl": "hsl(189, 94%, 15%)"
+            },
+            {
+              "step": "950",
+              "hex": "#072227",
+              "rgb": "rgb(7, 34, 39)",
+              "hsl": "hsl(189, 71%, 9%)"
+            }
+          ]
+        },
+        "brandExplanation": {
+          "brandPersonality": "Sophisticated, fast-paced, and technically proficient.",
+          "colorPsychology": "Indigo represents wisdom and trust, while Cyan provides an energetic 'hacker' vibe essential for a developer-centric agency.",
+          "whyTheseColorsWork": "The high contrast between the deep charcoal background and neon accents creates a 'code editor' aesthetic that resonates with developers.",
+          "recommendedUsage": [
+            "Use Cyan exclusively for highlighting technical data or call-to-actions.",
+            "Maintain strict contrast ratios for readability in developer tools."
+          ],
+          "thingsToAvoid": [
+            "Avoid excessive use of neon colors in background elements which can cause eye fatigue.",
+            "Do not use low-contrast text for critical documentation."
+          ]
+        },
+        "accessibility": [
+          {
+            "pair": "Body Text vs Background",
+            "foreground": "#F8FAFC",
+            "background": "#0F172A",
+            "ratio": 17.06,
+            "rating": "AAA"
+          },
+          {
+            "pair": "Heading / Link vs Background",
+            "foreground": "#22D3EE",
+            "background": "#0F172A",
+            "ratio": 9.88,
+            "rating": "AAA"
+          },
+          {
+            "pair": "Button Text vs Button",
+            "foreground": "#FFFFFF",
+            "background": "#6366F1",
+            "ratio": 4.47,
+            "rating": "Fail",
+            "recommendation": "Increase luminosity delta between White and Electric Indigo. Ensure high contrast for call-to-action button labels to minimize user friction."
+          },
+          {
+            "pair": "Muted Text vs Surface",
+            "foreground": "#94A3B8",
+            "background": "#1E293B",
+            "ratio": 5.71,
+            "rating": "AA"
+          },
+          {
+            "pair": "Primary Accent vs Background",
+            "foreground": "#6366F1",
+            "background": "#0F172A",
+            "ratio": 4,
+            "rating": "Fail",
+            "recommendation": "Increase luminosity delta between Electric Indigo and Deep Charcoal. Brand color on canvas should maintain sufficient contrast for iconography and key visual cues."
+          }
+        ],
+        "harmonies": [
+          {
+            "type": "Complementary",
+            "description": "Opposite on the color wheel; provides high contrast and energetic emphasis.",
+            "colors": [
+              {
+                "name": "Base",
+                "hex": "#4F46E5",
+                "role": "Base tone"
+              },
+              {
+                "name": "Complement",
+                "hex": "#DDE548",
+                "role": "Opposing accent"
+              }
+            ]
+          },
+          {
+            "type": "Analogous",
+            "description": "Adjacent colors on the wheel; creates serene and harmonious visual flow.",
+            "colors": [
+              {
+                "name": "Analogous -30°",
+                "hex": "#488FE5",
+                "role": "Neighboring cool"
+              },
+              {
+                "name": "Base",
+                "hex": "#4F46E5",
+                "role": "Base tone"
+              },
+              {
+                "name": "Analogous +30°",
+                "hex": "#9E48E5",
+                "role": "Neighboring warm"
+              }
+            ]
+          },
+          {
+            "type": "Triadic",
+            "description": "Three evenly spaced colors (120° apart); vibrant yet balanced.",
+            "colors": [
+              {
+                "name": "Base",
+                "hex": "#4F46E5",
+                "role": "Primary anchor"
+              },
+              {
+                "name": "Triad 1",
+                "hex": "#E55048",
+                "role": "Secondary energy"
+              },
+              {
+                "name": "Triad 2",
+                "hex": "#48E550",
+                "role": "Supporting accent"
+              }
+            ]
+          },
+          {
+            "type": "Split Complementary",
+            "description": "The base color plus two colors adjacent to its complement; rich nuance with less tension.",
+            "colors": [
+              {
+                "name": "Base",
+                "hex": "#4F46E5",
+                "role": "Anchor"
+              },
+              {
+                "name": "Split Left",
+                "hex": "#E59E48",
+                "role": "Warm split"
+              },
+              {
+                "name": "Split Right",
+                "hex": "#8FE548",
+                "role": "Cool split"
+              }
+            ]
+          },
+          {
+            "type": "Tetradic",
+            "description": "Two complementary pairs (90° apart); dynamic range suitable for rich multi-card layouts.",
+            "colors": [
+              {
+                "name": "Base",
+                "hex": "#4F46E5",
+                "role": "Dominant"
+              },
+              {
+                "name": "Shift +90°",
+                "hex": "#E5488F",
+                "role": "Sub-dominant"
+              },
+              {
+                "name": "Complement",
+                "hex": "#DDE548",
+                "role": "Contrast"
+              },
+              {
+                "name": "Shift +270°",
+                "hex": "#48E59E",
+                "role": "Tertiary accent"
+              }
+            ]
+          }
+        ],
+        "createdAt": "2026-10-06T10:51:22.824Z"
+      },
+      "createdAt": "2026-10-06T10:51:22.824Z"
+    },
     {
       "id": "hist_1791283484584_6kab",
       "userId": "anonymous",

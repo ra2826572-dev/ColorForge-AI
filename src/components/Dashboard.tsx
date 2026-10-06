@@ -9,6 +9,7 @@ import { HistoryView } from './HistoryView';
 import { ColorAnalyzerView } from './ColorAnalyzerView';
 import { PricingView } from './PricingView';
 import { SettingsView } from './SettingsView';
+import { LayoutGeneratorView } from './layout-generator/LayoutGeneratorView';
 import {
   LayoutDashboard,
   PlusCircle,
@@ -24,6 +25,7 @@ import {
   ChevronRight,
   Menu,
   X,
+  LayoutTemplate,
 } from 'lucide-react';
 
 export const Dashboard: React.FC = () => {
@@ -38,7 +40,7 @@ export const Dashboard: React.FC = () => {
           <Sparkles className="mx-auto h-8 w-8 text-indigo-400" />
           <h2 className="text-xl font-bold text-white">Protected Workspace</h2>
           <p className="text-xs text-slate-400">
-            Please sign in to access your projects, dashboard analytics, and AI color generator.
+            Pehle login karein, phir apna username add karein taake dashboard open ho sake. Sign in to access your projects, analytics, and AI design generator.
           </p>
           <div className="pt-2 flex flex-col gap-2">
             <button
@@ -46,9 +48,9 @@ export const Dashboard: React.FC = () => {
                 setAuthModalMode('login');
                 setAuthModalOpen(true);
               }}
-              className="w-full py-2.5 rounded-xl bg-indigo-600 text-xs font-semibold text-white hover:bg-indigo-500 transition-colors"
+              className="w-full py-2.5 rounded-xl bg-indigo-600 text-xs font-semibold text-white hover:bg-indigo-500 transition-colors shadow-md"
             >
-              Sign In to Continue
+              Sign In to Continue &rarr;
             </button>
             <button
               onClick={() => setActiveTab('landing')}
@@ -64,7 +66,8 @@ export const Dashboard: React.FC = () => {
 
   const sidebarNavItems = [
     { id: 'overview', label: 'Dashboard', icon: LayoutDashboard },
-    { id: 'generator', label: 'New Color System', icon: PlusCircle, highlight: true },
+    { id: 'layout-generator', label: 'AI Layout Generator', icon: LayoutTemplate, highlight: true },
+    { id: 'generator', label: 'New Color System', icon: PlusCircle },
     { id: 'projects', label: 'My Projects', icon: FolderKanban },
     { id: 'palette', label: 'Active Palette', icon: Sparkles, disabled: !activeSystem },
     { id: 'analyzer', label: 'Color Analyzer', icon: Pipette },
@@ -172,6 +175,7 @@ export const Dashboard: React.FC = () => {
         {/* Main Content Area */}
         <main className="flex-1 overflow-y-auto bg-slate-950">
           {activeTab === 'overview' && <OverviewView />}
+          {activeTab === 'layout-generator' && <LayoutGeneratorView />}
           {activeTab === 'generator' && <GeneratorWizard />}
           {activeTab === 'palette' && activeSystem && <PaletteDetailView system={activeSystem} />}
           {activeTab === 'palette' && !activeSystem && <GeneratorWizard />}

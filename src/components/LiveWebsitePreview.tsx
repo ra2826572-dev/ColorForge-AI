@@ -14,7 +14,7 @@ export const LiveWebsitePreview: React.FC<LiveWebsitePreviewProps> = ({
   onQuickRefine,
   isRefining,
 }) => {
-  const { showToast } = useApp();
+  const { showToast, setActiveTab } = useApp();
   const [device, setDevice] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
 
   // Active theme based on system activeTheme
@@ -44,33 +44,43 @@ export const LiveWebsitePreview: React.FC<LiveWebsitePreviewProps> = ({
     <div className="space-y-4">
       {/* Viewport & Refine Toolbar */}
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-800 bg-slate-900/90 p-3 shadow-md">
-        <div className="flex items-center gap-1.5 bg-slate-950 p-1 rounded-lg border border-slate-800">
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 bg-slate-950 p-1 rounded-lg border border-slate-800">
+            <button
+              onClick={() => setDevice('desktop')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
+                device === 'desktop' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              <Monitor className="h-3.5 w-3.5" />
+              Desktop
+            </button>
+            <button
+              onClick={() => setDevice('tablet')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
+                device === 'tablet' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              <Tablet className="h-3.5 w-3.5" />
+              Tablet
+            </button>
+            <button
+              onClick={() => setDevice('mobile')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
+                device === 'mobile' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              <Smartphone className="h-3.5 w-3.5" />
+              Mobile
+            </button>
+          </div>
+
           <button
-            onClick={() => setDevice('desktop')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
-              device === 'desktop' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-slate-200'
-            }`}
+            onClick={() => setActiveTab('layout-generator')}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-bold text-white transition-all shadow-sm"
           >
-            <Monitor className="h-3.5 w-3.5" />
-            Desktop
-          </button>
-          <button
-            onClick={() => setDevice('tablet')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
-              device === 'tablet' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-slate-200'
-            }`}
-          >
-            <Tablet className="h-3.5 w-3.5" />
-            Tablet
-          </button>
-          <button
-            onClick={() => setDevice('mobile')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
-              device === 'mobile' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-slate-200'
-            }`}
-          >
-            <Smartphone className="h-3.5 w-3.5" />
-            Mobile
+            <Sparkles className="h-3.5 w-3.5" />
+            <span>Open Full AI Layout Generator</span>
           </button>
         </div>
 

@@ -83,6 +83,7 @@ export interface ColorSystem {
 export interface User {
   id: string;
   name: string;
+  username?: string;
   email: string;
   avatar?: string;
   plan: 'free' | 'pro';
@@ -133,3 +134,67 @@ export interface ColorAnalysisResult {
   harmonies: ColorHarmonyGroup[];
   suggestedPalette: PaletteTheme;
 }
+
+export type WebsiteLayoutType =
+  | 'SaaS'
+  | 'Portfolio'
+  | 'Agency'
+  | 'E-commerce'
+  | 'Restaurant'
+  | 'Blog'
+  | 'Education'
+  | 'Healthcare'
+  | 'Real Estate'
+  | 'Finance'
+  | 'Landing Page'
+  | 'Dashboard';
+
+export interface LayoutColors {
+  primary: string;
+  secondary: string;
+  accent: string;
+  background: string;
+  surface: string;
+  text: string;
+}
+
+export interface DerivedLayoutTokens {
+  buttonHover: string;
+  cardBorder: string;
+  subtleBg: string;
+  mutedText: string;
+  accentHover: string;
+  badgeBg: string;
+  badgeText: string;
+  inputBg: string;
+  inputBorder: string;
+  shadowRgba: string;
+  primaryGlowRgba: string;
+  borderWidth: string;
+}
+
+export interface LayoutDesignAnalysis {
+  colorHarmonyScore: number;
+  contrastRating: 'Excellent' | 'Good' | 'Moderate';
+  accessibilityRating: 'AAA' | 'AA' | 'Good';
+  style: string;
+  primaryUsage: string;
+  secondaryUsage: string;
+  accentUsage: string;
+  recommendedRadius: string;
+  recommendedTypography: string;
+  whyColorsWork: string;
+  derivedColors: DerivedLayoutTokens;
+}
+
+export interface GeneratedLayoutSystem {
+  id: string;
+  websiteType: WebsiteLayoutType;
+  websiteName: string;
+  colors: LayoutColors;
+  analysis: LayoutDesignAnalysis;
+  typography: string;
+  borderRadius: string;
+  createdAt: string;
+}
+

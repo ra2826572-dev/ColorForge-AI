@@ -18,20 +18,29 @@ export const OverviewView: React.FC = () => {
         <div>
           <span className="text-xs font-mono uppercase tracking-wider text-indigo-400">Workspace Dashboard</span>
           <h1 className="text-2xl font-bold text-white mt-1">
-            Welcome back, {user?.name || 'Designer'}
+            Welcome back, {user?.username || user?.name || 'Designer'}
           </h1>
           <p className="text-xs text-slate-400 mt-1 max-w-lg">
             Manage your brand systems, generate accessible website palettes, and export design tokens in one unified hub.
           </p>
         </div>
 
-        <button
-          onClick={() => setActiveTab('generator')}
-          className="flex items-center gap-2 self-start sm:self-auto rounded-xl bg-indigo-600 px-5 py-3 text-xs font-bold text-white hover:bg-indigo-500 transition-colors shadow-lg shadow-indigo-600/25"
-        >
-          <Plus className="h-4 w-4" />
-          Create New Color System
-        </button>
+        <div className="flex flex-wrap items-center gap-2.5">
+          <button
+            onClick={() => setActiveTab('layout-generator')}
+            className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 px-5 py-3 text-xs font-bold text-white hover:opacity-95 transition-all shadow-lg shadow-indigo-600/30"
+          >
+            <Sparkles className="h-4 w-4" />
+            AI Layout Generator
+          </button>
+          <button
+            onClick={() => setActiveTab('generator')}
+            className="flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-800 px-5 py-3 text-xs font-bold text-slate-200 hover:bg-slate-700 hover:text-white transition-all shadow-md"
+          >
+            <Plus className="h-4 w-4" />
+            New Color System
+          </button>
+        </div>
       </div>
 
       {/* Metrics Row */}

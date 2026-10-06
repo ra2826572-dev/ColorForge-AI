@@ -25,7 +25,7 @@ interface PaletteDetailViewProps {
 }
 
 export const PaletteDetailView: React.FC<PaletteDetailViewProps> = ({ system }) => {
-  const { setActiveSystem, saveCurrentProject, setExportModalOpen, showToast } = useApp();
+  const { setActiveSystem, saveCurrentProject, setExportModalOpen, showToast, setActiveTab } = useApp();
   const [refinePrompt, setRefinePrompt] = useState('');
   const [isRefining, setIsRefining] = useState(false);
   const [activeSubTab, setActiveSubTab] = useState<'roles' | 'preview' | 'scales' | 'accessibility' | 'harmonies'>('roles');
@@ -99,6 +99,15 @@ export const PaletteDetailView: React.FC<PaletteDetailViewProps> = ({ system }) 
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5">
+          {/* Generate Website Layout Button */}
+          <button
+            onClick={() => setActiveTab('layout-generator')}
+            className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 px-4 py-2 text-xs font-bold text-white hover:opacity-95 transition-all shadow-md shadow-indigo-600/30 active:scale-95"
+          >
+            <Sparkles className="h-4 w-4" />
+            <span>✨ Generate Website Layout</span>
+          </button>
+
           {/* Light / Dark Mode Toggle */}
           <button
             onClick={toggleTheme}
@@ -129,7 +138,7 @@ export const PaletteDetailView: React.FC<PaletteDetailViewProps> = ({ system }) 
           {/* Export Button */}
           <button
             onClick={() => setExportModalOpen(true)}
-            className="flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2 text-xs font-semibold text-white hover:bg-indigo-500 transition-colors shadow-sm shadow-indigo-600/20"
+            className="flex items-center gap-2 rounded-xl bg-slate-800 border border-slate-700 px-4 py-2 text-xs font-semibold text-white hover:bg-slate-700 transition-colors shadow-sm"
           >
             <Download className="h-4 w-4" />
             <span>Export Tokens</span>
