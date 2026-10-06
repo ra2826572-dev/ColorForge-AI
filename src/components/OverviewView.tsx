@@ -52,7 +52,7 @@ export const OverviewView: React.FC = () => {
         <div className="rounded-2xl border border-rose-500/30 bg-rose-950/20 p-8 text-center space-y-4 max-w-lg mx-auto">
           <AlertTriangle className="h-10 w-10 text-rose-400 mx-auto" />
           <h2 className="text-lg font-bold text-white">Something went wrong while loading your workspace.</h2>
-          <p className="text-xs text-rose-300/80">{dataError}</p>
+          <p className="text-xs text-rose-300/80">{typeof dataError === 'string' ? dataError : JSON.stringify(dataError)}</p>
           <button
             onClick={() => refreshData()}
             className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-xs font-bold text-white hover:bg-indigo-500 transition-colors shadow-md"
